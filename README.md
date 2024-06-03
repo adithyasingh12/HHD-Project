@@ -1,4 +1,5 @@
 # HHD-Project
+```expo run:android``` to run
 
 # Google Doc
 https://docs.google.com/document/d/17I_UG_9WQw91K_9aN2IOVWiWzlE7L7dEhPs-3BegPr0/edit
