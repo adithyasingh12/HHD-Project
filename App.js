@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -27,3 +28,4 @@ const App = () => {
 }  
 
 export default App;
+

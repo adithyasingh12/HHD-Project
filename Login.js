@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react'
 import { Alert, Button, Image, ScrollView, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native'
 const logo = require("./images/logo.png")
+
 // const sampleImage = require("./images/video.jpg")
 
 function Login({ navigation }) {
@@ -9,6 +10,7 @@ function Login({ navigation }) {
   const {username,setUsername}=  useState("");
   const {password,setPassword}=  useState("");
   return (
+
   <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.image} resizeMode='contain' />
       <View style={styles.inputView}>
@@ -32,9 +34,11 @@ function Login({ navigation }) {
       <Text style={styles.footerText}>Don't Have Account?</Text>
 
       <View style={styles.buttonView}>
+
           <Pressable style={styles.registerButton} onPress={() => {
             navigation.navigate('EditDetails')
             Alert.alert("Register clicked!")}}>
+
               <Text style={styles.buttonText}>Register</Text>
           </Pressable>
       </View>
@@ -154,4 +158,6 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default Login;
+
