@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Alert, Button, Image, ScrollView, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native'
 const logo = require("./images/logo.png")
 
-// const sampleImage = require("./images/video.jpg")
+const sampleImage = require("./images/video.jpg")
 
 function Login({ navigation }) {
   const [click,setClick] = useState(false);

@@ -10,7 +10,7 @@ import {
   Image,
 } from 'react-native';
 
-const HomePage = () => {
+function HomePage({ navigation }) {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
