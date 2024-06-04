@@ -36,9 +36,7 @@ function Login({ navigation }) {
       <View style={styles.buttonView}>
 
           <Pressable style={styles.registerButton} onPress={() => {
-            navigation.navigate('EditDetails')
-            Alert.alert("Register clicked!")}}>
-
+            navigation.navigate('EditDetails')}}>
               <Text style={styles.buttonText}>Register</Text>
           </Pressable>
       </View>
