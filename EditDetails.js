@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const EditDetails = () => {
+function EditDetails({navigation}) {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [diagnosisValue, setDiagnosisValue] = useState(null);
@@ -220,6 +220,7 @@ const EditDetails = () => {
       <Button
         title="Submit"
         onPress={() => {
+          navigation.navigate('Login')
           // Handle button press
           console.log('First Name:', firstNameValue);
           console.log('Last Name:', lastNameValue);
