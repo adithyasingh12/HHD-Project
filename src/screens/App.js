@@ -56,6 +56,11 @@ const App = () => {
           component={VideoPlayerScreen}
           options={{ title: "Video Player" }}
         />
+        <Stack.Screen
+          name="EditDetails"
+          component={EditDetails}
+          options={{ title: "Edit Details" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
