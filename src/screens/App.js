@@ -15,17 +15,17 @@ import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
 
-
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+        {/* <Stack.Screen
           name="AdminScreen"
           component={AdminHomeScreen}
           options={{ title: "Admin Home" }}
-        />
+        /> */}
+
         <Stack.Screen
           name="Login"
           component={Login}

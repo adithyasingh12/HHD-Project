@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   StatusBar,
@@ -9,75 +9,77 @@ import {
   StyleSheet,
   Image,
   Pressable,
-  onPressFunction
-} from 'react-native';
+  onPressFunction,
+} from "react-native";
 
 const HomePage = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? 'black' : 'white',
+    backgroundColor: isDarkMode ? "black" : "white",
     flex: 1,
     padding: 20,
     marginTop: -7,
   };
 
   const textStyle = {
-    color: isDarkMode ? 'white' : 'black',
+    color: isDarkMode ? "white" : "black",
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 10,
   };
 
   const navigationText = {
-    color: isDarkMode ? 'white' : 'black',
+    color: isDarkMode ? "white" : "black",
     fontSize: 18,
-    textAlign: 'center',
-    
+    textAlign: "center",
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <View style={backgroundStyle}>
-        <View style={{ alignItems: 'center', marginBottom: 9 }}>
-          <Image source= {require ('./images/image2.png') }
+        <View style={{ alignItems: "center", marginBottom: 9 }}>
+          <Image
+            source={require("../images/image2.png")}
             style={{ width: 380, height: 80 }}
           />
         </View>
 
-      <Pressable onPress={onPressFunction}>
-        <Image source= {require ('./images/box2.png') }
-          style={[styles.navigationImage, styles.roundedEdges]}
-          />
-        <Text style={styles.centeredBoldText}>Video Gallery </Text>
-      </Pressable>
-      
-      <Pressable onPress={onPressFunction}>
-        <Image source= {require ('./images/box1.png') }
-            style={[styles.navigationImage, styles.roundedEdges]}
-           
-          />
-        <Text style={styles.centeredBoldText}>Edit Personal Info </Text>
-      </Pressable>
-
-      <Pressable onPress={onPressFunction}>
-        <Image source= {require ('./images/box3.png') }
+        <Pressable onPress={onPressFunction}>
+          <Image
+            source={require("../images/box2.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
           />
-        <Text style={styles.centeredBoldText}>Notifications </Text>
-      </Pressable>
+          <Text style={styles.centeredBoldText}>Video Gallery </Text>
+        </Pressable>
 
-      <Pressable onPress={onPressFunction}>
-          <Image source= {require ('./images/box4.png') }
+        <Pressable onPress={onPressFunction}>
+          <Image
+            source={require("../images/box1.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
           />
-        <Text style={styles.centeredBoldText}>Contact</Text>
-      </Pressable>
+          <Text style={styles.centeredBoldText}>Edit Personal Info </Text>
+        </Pressable>
 
+        <Pressable onPress={onPressFunction}>
+          <Image
+            source={require("../images/box3.png")}
+            style={[styles.navigationImage, styles.roundedEdges]}
+          />
+          <Text style={styles.centeredBoldText}>Notifications </Text>
+        </Pressable>
+
+        <Pressable onPress={onPressFunction}>
+          <Image
+            source={require("../images/box4.png")}
+            style={[styles.navigationImage, styles.roundedEdges]}
+          />
+          <Text style={styles.centeredBoldText}>Contact</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   navigationImage: {
     width: 200,
     height: 95,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 20,
   },
   roundedEdges: {
@@ -98,8 +100,8 @@ const styles = StyleSheet.create({
   },
 
   centeredBoldText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
     fontSize: 16,
     marginBottom: 20,
     marginTop: -20,
