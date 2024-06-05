@@ -8,15 +8,17 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Pressable,
+  onPressFunction
 } from 'react-native';
 
-function HomePage({ navigation }) {
+const HomePage = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? 'black' : 'white',
     flex: 1,
-    padding: 20, // Adjusted padding
+    padding: 20,
     marginTop: -7,
   };
 
@@ -42,40 +44,40 @@ function HomePage({ navigation }) {
       />
       <View style={backgroundStyle}>
         <View style={{ alignItems: 'center', marginBottom: 9 }}>
-          <Image
-            source={{ uri: 'file:///Users/bradiefuentes/internship/image2.png' }}
+          <Image source= {require ('./images/image2.png') }
             style={{ width: 380, height: 80 }}
           />
         </View>
-        {[0, 1, 2, 3].map((index) => (
-          <View key={index} style={{ marginBottom: 20, width: '100%' }}>
-            
-            <Image
-              source={{
-                uri:
-                  index === 0
-                    ? 'file:///Users/bradiefuentes/internship/box2.png'
-                    : index === 1
-                    ? 'file:///Users/bradiefuentes/internship/box1.png'
-                    : index === 2
-                    ? 'file:///Users/bradiefuentes/internship/box3.png'
-                    : 'file:///Users/bradiefuentes/internship/box4.png',
-              }}
-              style={[styles.navigationImage, styles.roundedEdges]} // Apply roundedEdges style
-            />
-            <View style={{ marginTop: -18, alignItems: 'center', width: '100%' }}>
-              <Text style={navigationText}>
-                {index === 0
-                  ? 'Video Gallery'
-                  : index === 1
-                  ? 'Edit Personal Detail'
-                  : index === 2
-                  ? 'Notifications'
-                  : 'Contact'}
-              </Text>
-            </View>
-          </View>
-        ))}
+
+      <Pressable onPress={onPressFunction}>
+        <Image source= {require ('./images/box2.png') }
+          style={[styles.navigationImage, styles.roundedEdges]}
+          />
+        <Text style={styles.centeredBoldText}>Video Gallery </Text>
+      </Pressable>
+      
+      <Pressable onPress={onPressFunction}>
+        <Image source= {require ('./images/box1.png') }
+            style={[styles.navigationImage, styles.roundedEdges]}
+           
+          />
+        <Text style={styles.centeredBoldText}>Edit Personal Info </Text>
+      </Pressable>
+
+      <Pressable onPress={onPressFunction}>
+        <Image source= {require ('./images/box3.png') }
+            style={[styles.navigationImage, styles.roundedEdges]}
+          />
+        <Text style={styles.centeredBoldText}>Notifications </Text>
+      </Pressable>
+
+      <Pressable onPress={onPressFunction}>
+          <Image source= {require ('./images/box4.png') }
+            style={[styles.navigationImage, styles.roundedEdges]}
+          />
+        <Text style={styles.centeredBoldText}>Contact</Text>
+      </Pressable>
+
       </View>
     </SafeAreaView>
   );
@@ -93,6 +95,14 @@ const styles = StyleSheet.create({
   },
   roundedEdges: {
     borderRadius: 10,
+  },
+
+  centeredBoldText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 20,
+    marginTop: -20,
   },
 });
 
