@@ -1,14 +1,22 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+  Image,
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
-const NotificationsScreen = () => {
+const NotificationsScreen = (navigation) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Image source={require('./images/image.png')} style={styles.logo} />
+        <Image source={require("./images/image.png")} style={styles.logo} />
       </View>
       <View style={styles.notificationsContainer}>
         <Text style={styles.title}>Notifications</Text>
@@ -35,28 +43,28 @@ const NotificationsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
+    backgroundColor: "white",
+    alignItems: "center",
     paddingTop: 40,
   },
   header: {
     height: 60, // Set a fixed height for the header
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 20,
   },
   logo: {
     width: 320,
     height: 160,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   notificationsContainer: {
     width: width * 0.9,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
@@ -66,23 +74,23 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   notificationButton: {
-    width: '100%',
+    width: "100%",
     paddingVertical: 15,
-    backgroundColor: '#001f54',
+    backgroundColor: "#001f54",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 15,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   homeIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     right: 20,
   },
