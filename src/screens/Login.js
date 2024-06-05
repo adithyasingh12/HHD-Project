@@ -54,7 +54,6 @@ function Login({ navigation }) {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Home");
-            Alert.alert("Login clicked!");
           }}
         >
           <Text style={styles.buttonText}>Login</Text>
