@@ -14,6 +14,7 @@ import VideoGallery from "./VideoGallery";
 import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
+import AdminNotification from "./AdminNotification";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -21,8 +22,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {/* <Stack.Screen
-          name="AdminScreen"
-          component={AdminHomeScreen}
+          name="AdminNotifications"
+          component={AdminNotification}
           options={{ title: "Admin Home" }}
         /> */}
 
