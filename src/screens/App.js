@@ -9,6 +9,7 @@ import Login from "./Login";
 import Register1 from "./Register1";
 import Register2 from "./Register2";
 import HomePage from "./HomePage";
+import NotificationsScreen from "./NotificationsScreen";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -34,6 +35,11 @@ const App = () => {
           name="Home"
           component={HomePage}
           options={{ title: "Home Page" }}
+        />
+        <Stack.Screen
+          name="Notifications"
+          component={NotificationsScreen}
+          options={{ title: "Notifications" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
