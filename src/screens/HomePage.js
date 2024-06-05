@@ -49,12 +49,12 @@ const HomePage = ({navigation}) => {
           />
         </View>
 
-        <Pressable onPress={onPressFunction}>
+        <Pressable onPress={() => { navigation.navigate("VideoGallery"); }}>
           <Image
             source={require("../images/box2.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
           />
-          <Text style={styles.centeredBoldText}>Video Gallery </Text>
+          <Text style={styles.centeredBoldText}>Video Gallery</Text>
         </Pressable>
 
         <Pressable onPress={() => { navigation.navigate("EditDetails"); }}>
@@ -62,7 +62,7 @@ const HomePage = ({navigation}) => {
             source={require("../images/box1.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
           />
-          <Text style={styles.centeredBoldText}>Edit Personal Info </Text>
+          <Text style={styles.centeredBoldText}>Edit Personal Info</Text>
         </Pressable>
 
         <Pressable onPress={() => { navigation.navigate("Notifications"); }}>
@@ -70,7 +70,7 @@ const HomePage = ({navigation}) => {
             source={require("../images/box3.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
           />
-          <Text style={styles.centeredBoldText}>Notifications </Text>
+          <Text style={styles.centeredBoldText}>Notifications</Text>
         </Pressable>
 
         <Pressable onPress={onPressFunction}>

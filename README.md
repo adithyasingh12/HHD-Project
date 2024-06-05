@@ -4,7 +4,7 @@
 
 # Instructions
 
-do "npm i --legacy-peer-drops" or "npm -i --force"
+do "npm i --legacy-peer-drops" or "npm i --force"
 
 # Google Doc
 
