@@ -12,7 +12,7 @@ import {
   onPressFunction,
 } from "react-native";
 
-const HomePage = () => {
+const HomePage = (navigation) => {
   const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
@@ -57,7 +57,7 @@ const HomePage = () => {
           <Text style={styles.centeredBoldText}>Video Gallery </Text>
         </Pressable>
 
-        <Pressable onPress={onPressFunction}>
+        <Pressable onPress={navigation.navigate("EditDetails")}>
           <Image
             source={require("../images/box1.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
@@ -65,7 +65,7 @@ const HomePage = () => {
           <Text style={styles.centeredBoldText}>Edit Personal Info </Text>
         </Pressable>
 
-        <Pressable onPress={onPressFunction}>
+        <Pressable onPress={navigation.navigate("Notifications")}>
           <Image
             source={require("../images/box3.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
