@@ -10,11 +10,15 @@ import Register1 from "./Register1";
 import Register2 from "./Register2";
 import HomePage from "./HomePage";
 import NotificationsScreen from "./NotificationsScreen";
-
+import VideoGallery from "./VideoGallery";
 import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
+
 import NewCategoryScreen from "./NewCategoryScreen";
+
+import AdminNotification from "./AdminNotification";
+
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -27,8 +31,8 @@ const App = () => {
           options={{ title: "New Category" }}
         />
         {/* <Stack.Screen
-          name="AdminScreen"
-          component={AdminHomeScreen}
+          name="AdminNotifications"
+          component={AdminNotification}
           options={{ title: "Admin Home" }}
         /> */}
 
@@ -66,6 +70,11 @@ const App = () => {
           name="EditDetails"
           component={EditDetails}
           options={{ title: "Edit Details" }}
+        />
+        <Stack.Screen
+          name="VideoGallery"
+          component={VideoGallery}
+          options={{ title: "Video Gallery" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
