@@ -14,12 +14,18 @@ import NotificationsScreen from "./NotificationsScreen";
 import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
+import NewCategoryScreen from "./NewCategoryScreen";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="NewCategory"
+          component={NewCategoryScreen}
+          options={{ title: "New Category" }}
+        />
         {/* <Stack.Screen
           name="AdminScreen"
           component={AdminHomeScreen}
