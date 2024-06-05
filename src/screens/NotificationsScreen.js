@@ -16,7 +16,10 @@ const NotificationsScreen = (navigation) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../images/image.png")} style={styles.logo} />
+
+
+        <Image source={require("../images/logo.png")} style={styles.logo} />
+
       </View>
       <View style={styles.notificationsContainer}>
         <Text style={styles.title}>Notifications</Text>
