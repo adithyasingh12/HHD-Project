@@ -10,12 +10,18 @@ import Register1 from "./Register1";
 import Register2 from "./Register2";
 import HomePage from "./HomePage";
 import NotificationsScreen from "./NotificationsScreen";
+import AdminHomeScreen from "./AdminHomeScreen";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="AdminScreen"
+          component={AdminHomeScreen}
+          options={{ title: "Admin Home" }}
+        />
         <Stack.Screen
           name="Login"
           component={Login}
