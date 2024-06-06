@@ -77,9 +77,8 @@ function Register1({ navigation }) {
           style={isDisabled ? styles.disabledButton : styles.button}
           onPress={() => {
             navigation.navigate("Register2");
-            Alert.alert("Register clicked!");
           }}
-          disabled={isDisabled}
+          // disabled={isDisabled}
         >
           <Text style={styles.buttonText}>Next</Text>
         </Pressable>

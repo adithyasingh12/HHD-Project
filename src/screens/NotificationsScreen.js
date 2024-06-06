@@ -12,7 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
-const NotificationsScreen = (navigation) => {
+const NotificationsScreen = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -35,7 +35,7 @@ const NotificationsScreen = (navigation) => {
         <TouchableOpacity style={styles.notificationButton}>
           <Text style={styles.buttonText}>Welcome to the CHC App!</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.homeIcon}>
+        <TouchableOpacity style={styles.homeIcon} onPress={() => { navigation.navigate("Home"); }}>
           <MaterialIcons name="home" size={28} color="black" />
         </TouchableOpacity>
       </View>

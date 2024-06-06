@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Pressable,
   ScrollView,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -250,16 +251,9 @@ function EditDetails({ navigation }) {
           />
         </View>
 
-        <Button
-          title="Submit"
-          onPress={() => {
-            navigation.navigate("Login");
-            // Handle button press
-            console.log("First Name:", firstNameValue);
-            console.log("Last Name:", lastNameValue);
-            console.log("Date of Birth:", dob);
-          }}
-        />
+        <Pressable style={styles.submitButton} onPress={() => { navigation.navigate("Home"); }}>
+            <Text style={styles.submitButtonText}>Submit</Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -306,6 +300,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
+  },
+  submitButton: {
+    width: "100%",
+    paddingVertical: 15,
+    backgroundColor: "#001f54",
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
