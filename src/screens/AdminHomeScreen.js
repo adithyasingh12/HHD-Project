@@ -11,7 +11,7 @@ const AdminHomeScreen = ({navigation}) => {
         <Image source={require("../images/logo.png")} style={styles.logo} />
       </View>
       <Pressable style={styles.optionContainer} >
-        <TouchableOpacity style={styles.iconButton} onPress={() => { navigation.navigate("AdminHome"); }}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => { navigation.navigate("AddVideo"); }}>
           <MaterialIcons name="add-circle-outline" size={60} color="white" />
         </TouchableOpacity>
         <Text style={styles.optionText}>Add New Video</Text>
