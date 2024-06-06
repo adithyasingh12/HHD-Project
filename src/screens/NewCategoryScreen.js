@@ -25,12 +25,6 @@ const NewCategoryScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <MaterialIcons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>New Video Category</Text>
-      </View>
       <View style={styles.form}>
         <TextInput
           style={styles.input}

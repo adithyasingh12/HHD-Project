@@ -25,17 +25,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          name="NewCategory"
-          component={NewCategoryScreen}
-          options={{ title: "New Category" }}
-        />
-        {/* <Stack.Screen
-          name="AdminNotifications"
-          component={AdminNotification}
-          options={{ title: "Admin Home" }}
-        /> */}
-
         <Stack.Screen
           name="Login"
           component={Login}
@@ -75,6 +64,21 @@ const App = () => {
           name="VideoGallery"
           component={VideoGallery}
           options={{ title: "Video Gallery" }}
+        />
+        <Stack.Screen
+          name="NewCategory"
+          component={NewCategoryScreen}
+          options={{ title: "New Category" }}
+        />
+        <Stack.Screen
+          name="AdminNotifications"
+          component={AdminNotification}
+          options={{ title: "Admin Notifications" }}
+        />
+        <Stack.Screen
+          name="AdminHome"
+          component={AdminHomeScreen}
+          options={{ title: "Admin Home" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
