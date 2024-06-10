@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   navigationImage: {
     width: 200,
-    height: 95,
+    height: 88,
     alignSelf: "center",
     marginBottom: 20,
   },

@@ -88,15 +88,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   uploadButton: {
-    backgroundColor: "#000080",
+    width: "100%",
+    paddingVertical: 15,
+    backgroundColor: "#001f54",
+    borderRadius: 8,
     alignItems: "center",
-    justifyContent: "center",
-    height: 40,
-    borderRadius: 5,
+    marginBottom: 15,
   },
   uploadButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   dropdown: {
     height: 40,

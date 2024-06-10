@@ -25,12 +25,6 @@ const NewCategoryScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <MaterialIcons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>New Video Category</Text>
-      </View>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -116,13 +110,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   createButton: {
-    width: width * 0.5,
-    height: 50,
-    backgroundColor: '#001f54',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
+    width: "100%",
+    paddingVertical: 15,
+    backgroundColor: "#001f54",
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 15,
   },
   createButtonText: {
     color: 'white',

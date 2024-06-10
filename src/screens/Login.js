@@ -82,6 +82,22 @@ function Login({ navigation }) {
       <Text style={styles.footerText}>
         By continuing, you agree to the Terms and Conditions.
       </Text>
+
+      <View>
+        <Text>{"\n"}</Text>
+      </View>
+
+      <View style={styles.buttonView}>
+        <Pressable
+          style={styles.registerButton}
+          onPress={() => {
+            navigation.navigate("AdminHome");
+          }}
+        >
+          <Text style={styles.buttonText}>Admin Login</Text>
+        </Pressable>
+      </View>
+
     </SafeAreaView>
   );
 }

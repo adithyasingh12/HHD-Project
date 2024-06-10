@@ -10,20 +10,20 @@ import Register1 from "./Register1";
 import Register2 from "./Register2";
 import HomePage from "./HomePage";
 import NotificationsScreen from "./NotificationsScreen";
-import VideoGallery from "./VideoGallery";
+import AddVideo from "./AddVideo";
+
 import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
-
-import NewCategoryScreen from "./NewCategoryScreen";
-
 import AdminNotification from "./AdminNotification";
+import NewCategoryScreen from "./NewCategoryScreen";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         {/* <Stack.Screen
           name="NewCategory"
           component={NewCategoryScreen}
@@ -35,10 +35,16 @@ const App = () => {
           options={{ title: "Admin Home" }}
         /> */}
 
+
         <Stack.Screen
           name="Login"
           component={Login}
           options={{ title: "Login" }}
+        />
+        <Stack.Screen
+          name="AdminHome"
+          component={AdminHomeScreen}
+          options={{ title: "Admin Home" }}
         />
         <Stack.Screen
           name="Register1"
@@ -71,9 +77,19 @@ const App = () => {
           options={{ title: "Edit Details" }}
         />
         <Stack.Screen
-          name="VideoGallery"
-          component={VideoGallery}
-          options={{ title: "Video Gallery" }}
+          name="AdminNotifications"
+          component={AdminNotification}
+          options={{ title: "Admin Notifications" }}
+        />
+        <Stack.Screen
+          name="NewCategory"
+          component={NewCategoryScreen}
+          options={{ title: "New Category" }}
+        />
+        <Stack.Screen
+          name="AddVideo"
+          component={AddVideo}
+          options={{ title: "Add Video" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
