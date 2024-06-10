@@ -1,105 +1,89 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, StyleSheet, Button, Alert, Pressable } from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Pressable } from "react-native";
 import { launchImageLibrary } from 'react-native-image-picker';
-import { Dropdown } from "react-native-element-dropdown";
-import { MaterialIcons } from '@expo/vector-icons';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const AddVideo = ({ navigation }) => {
   const [videoUri, setVideoUri] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [ageGroup, setAgeGroup] = useState('');
-  const [category, setCategory] = useState('');
+  const [ageGroup, setAgeGroup] = useState([]);
+  const [category, setCategory] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
-
-  const onChange = (selectedValue, type) => {
-    if (type === 'ageGroup') {
-      setAgeGroup(selectedValue);
-    } else if (type === 'category') {
-      setCategory(selectedValue);
-    }
-  };
 
   const handleChooseVideo = () => {
     const options = {
-      mediaType: 'video', 
+      mediaType: 'video',
     };
 
     launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled video picker');
+      console.log('User cancelled video picker');
       } else if (response.error) {
-        console.log('VideoPicker Error: ', response.error);
+      console.log('VideoPicker Error: ', response.error);
       } else {
-        setVideoUri(response.uri);
+      setVideoUri(response.assets[0].uri);
+      setThumbnail(response.assets[0].uri);
       }
     });
   };
 
   const handleUploadVideo = async () => {
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <TextInput
-          style={styles.input}
-          placeholder="Video Title:"
-          value={title}
-          onChangeText={setTitle}
+        style={styles.input}
+        placeholder="Video Title:"
+        value={title}
+        onChangeText={setTitle}
         />
         <TextInput
-          style={styles.input}
-          placeholder="Description:"
-          value={description}
-          onChangeText={setDescription}
-          multiline
+        style={styles.input}
+        placeholder="Description:"
+        value={description}
+        onChangeText={setDescription}
+        multiline
         />
-          <Dropdown
-            style={[styles.dropdown, ageGroup && { borderColor: "blue" }]}
-            data={[
-              { label: "Child", value: "1" },
-              { label: "Adult", value: "2" },
-              { label: "Transition", value: "3" },
-            ]}
-            labelField="label"
-            valueField="value"
-            value={category}
-            placeholder={"Category:"}
-            onChange={(value) => setCategory(value)} // Update state directly
-          />
-          {/* <Dropdown
-            style={[styles.dropdown, ageGroup && { borderColor: "blue" },]}
-            data={[
-              {label: "Kids",value: "1"},
-              {label: "Teenagers",value: "2"},
-              {label: "Adults",value: "3"},
-              {label: "All",value: "4"},
-            ]}
-            labelField="label"
-            valueField="value"
-            value={ageGroup}
-            placeholder={"Age Group:"}
-            onChange={(value) => setAgeGroup(value)} // Update state directly
-          /> */}
+        <SectionedMultiSelect
+          items={[
+            {id:'1',name: 'General Topics - Child' },
+            {id:'2',name: 'General Topics - Adult' },
+            {id:'3',name: 'Transition Education' },
+            {id:'4',name: 'Lesion Specific Information - Adult' },
+            {id:'5',name: 'Special Topics - Child' },
+            {id:'6',name: 'Special Topics - Adult' },
+          ]}
+          uniqueKey="id"
+          onSelectedItemsChange={setCategory}
+          selectedItems={category}
+          selectText="Category"
+          searchPlaceholderText="Choose Categories..."
+          confirmText="Select"
+          styles={{ selectToggle: styles.dropdown }}
+          IconRenderer={MaterialIcons}
+        />
+      
         <View style={styles.thumbnailContainer}>
           <TextInput
             style={styles.thumbnailInput}
             placeholder="Choose Video"
-            value={thumbnail}
+            value={thumbnail ? "Video Selected" : ""}
             editable={false}
           />
           <TouchableOpacity style={styles.thumbnailButton} onPress={handleChooseVideo}>
-            <MaterialIcons name="photo-library" size={24} color="black" />
+          <MaterialIcons name="photo-library" size={24} color="black" />
           </TouchableOpacity>
         </View>
         {thumbnail && (
-          <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
+        <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
         )}
         <Pressable onPress={handleUploadVideo} style={styles.submitButton}>
-          <Text style={styles.submitButtonText}>Upload</Text>
+        <Text style={styles.submitButtonText}>Upload</Text>
         </Pressable>
-      </View>
+    </View>
     </SafeAreaView>
   );
 };
@@ -109,7 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
+    },
   content: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,7 +111,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     margin: 10,
-    width: '100%', 
+    width: '100%',
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -140,7 +124,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#4287f5',
     borderRadius: 10,
-
     marginTop: 20,
   },
   submitButton: {
