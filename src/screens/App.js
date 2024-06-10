@@ -11,6 +11,7 @@ import Register2 from "./Register2";
 import HomePage from "./HomePage";
 import NotificationsScreen from "./NotificationsScreen";
 import AddVideo from "./AddVideo";
+import VideoGallery from "./VideoGallery";
 
 import VideoPlayerScreen from "./VideoPlayer";
 
@@ -23,19 +24,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
-        {/* <Stack.Screen
-          name="NewCategory"
-          component={NewCategoryScreen}
-          options={{ title: "New Category" }}
-        /> */}
-        {/* <Stack.Screen
-          name="AdminNotifications"
-          component={AdminNotification}
-          options={{ title: "Admin Home" }}
-        /> */}
-
-
         <Stack.Screen
           name="Login"
           component={Login}
@@ -65,6 +53,11 @@ const App = () => {
           name="Notifications"
           component={NotificationsScreen}
           options={{ title: "Notifications" }}
+        />
+        <Stack.Screen
+          name="VideoGallery"
+          component={VideoGallery}
+          options={{ title: "Video Gallery" }}
         />
         <Stack.Screen
           name="VideoPlayer"
