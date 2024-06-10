@@ -92,7 +92,7 @@ function Register1({ navigation }) {
         <Pressable
           style={styles.registerButton}
           onPress={() => {
-            navigation.navigate("VideoPlayer");
+            navigation.navigate("Login");
           }}
         >
           <Text style={styles.buttonText}>Login</Text>
