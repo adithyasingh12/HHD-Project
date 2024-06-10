@@ -58,6 +58,7 @@ const doctors = [
   { label: "Robert Tunks, MD", value: "15" },
   { label: "Howard Weber, MD", value: "16" },
   { label: "Timothy Wolfe, MD", value: "17" },
+  {label: "Other", value: "18"}
 ];
 
 export { raceData, diagnosis, doctors };

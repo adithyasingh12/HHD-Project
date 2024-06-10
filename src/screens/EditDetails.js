@@ -20,6 +20,7 @@ function EditDetails({ navigation }) {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
   const [diagnosisValue, setDiagnosisValue] = useState(null);
+  const [additionalDiagnosis, setAdditionalDiagnosis] = useState(null);
   const [raceValue, setRaceValue] = useState(null);
   const [birthValue, setbirthValue] = useState(null);
   const [iscardiologistValue, setIsCardiologistValue] = useState(null);
@@ -153,6 +154,26 @@ function EditDetails({ navigation }) {
         </View>
 
         <View style={styles.inputContainer}>
+          <Text style={styles.label}>
+            Who is your primary congenital cardiologist:
+          </Text>
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            data={doctors}
+            labelField="label"
+            valueField="value"
+            placeholder={"Select an option"}
+            value={CardiologistValue}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setCardiologistValue(item.value);
+              setIsFocus(false);
+            }}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
           <Text style={styles.label}>Zip Code:</Text>
           <TextInput
             style={styles.textInput}
@@ -190,25 +211,6 @@ function EditDetails({ navigation }) {
             />
           </View>
         )}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>
-            Who is your primary congenital cardiologist:
-          </Text>
-          <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={doctors}
-            labelField="label"
-            valueField="value"
-            placeholder={"Select an option"}
-            value={CardiologistValue}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={(item) => {
-              setCardiologistValue(item.value);
-              setIsFocus(false);
-            }}
-          />
-        </View>
 
         <Pressable style={styles.submitButton} onPress={() => { navigation.navigate("Home"); }}>
             <Text style={styles.submitButtonText}>Submit</Text>
