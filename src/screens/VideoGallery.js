@@ -7,12 +7,9 @@ function VideoGallery({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>General Topics, Child{"\n"}</Text></View>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>General Topics, Adult{"\n"}</Text></View>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Transition Education{"\n"}</Text></View>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Lesion Specific Information, Adult{"\n"}</Text></View>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Special Topics, Child{"\n"}</Text></View>
-        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Special Topics, Adult{"\n"}</Text></View>
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Child{"\n"}</Text></View>
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Adult{"\n"}</Text></View>
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Transition{"\n"}</Text></View>
       </View>
     </ScrollView>
 )};
@@ -33,7 +30,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },
   itemContainer: {
-    width: '50%',
+    width: '100%',
     height: '100px',
   },
   item: {

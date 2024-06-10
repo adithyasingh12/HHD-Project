@@ -58,12 +58,9 @@ const AddVideo = ({ navigation }) => {
           <Dropdown
             style={[styles.dropdown, ageGroup && { borderColor: "blue" }]}
             data={[
-              { label: "General Topics - Child", value: "1" },
-              { label: "General Topics - Adult", value: "2" },
-              { label: "Transition Education", value: "3" },
-              { label: "Lesion Specific Information - Adult", value: "5" },
-              { label: "Special Topics - Child", value: "5" },
-              { label: "Special Topics - Adult", value: "6" },
+              { label: "Child", value: "1" },
+              { label: "Adult", value: "2" },
+              { label: "Transition", value: "3" },
             ]}
             labelField="label"
             valueField="value"
@@ -71,7 +68,7 @@ const AddVideo = ({ navigation }) => {
             placeholder={"Category:"}
             onChange={(value) => setCategory(value)} // Update state directly
           />
-          <Dropdown
+          {/* <Dropdown
             style={[styles.dropdown, ageGroup && { borderColor: "blue" },]}
             data={[
               {label: "Kids",value: "1"},
@@ -84,7 +81,7 @@ const AddVideo = ({ navigation }) => {
             value={ageGroup}
             placeholder={"Age Group:"}
             onChange={(value) => setAgeGroup(value)} // Update state directly
-          />
+          /> */}
         <View style={styles.thumbnailContainer}>
           <TextInput
             style={styles.thumbnailInput}
