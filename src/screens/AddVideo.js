@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, StyleSheet, Button, Alert, Pressable } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Dropdown } from "react-native-element-dropdown";
-import { MaterialIcons } from '@expo/vector-icons';
 
 const AddVideo = ({ navigation }) => {
   const [videoUri, setVideoUri] = useState(null);
@@ -10,7 +9,6 @@ const AddVideo = ({ navigation }) => {
   const [description, setDescription] = useState('');
   const [ageGroup, setAgeGroup] = useState('');
   const [category, setCategory] = useState('');
-  const [thumbnail, setThumbnail] = useState(null);
 
   const onChange = (selectedValue, type) => {
     if (type === 'ageGroup') {
@@ -44,30 +42,40 @@ const AddVideo = ({ navigation }) => {
       <View style={styles.content}>
         <TextInput
           style={styles.input}
-          placeholder="Video Title:"
+          placeholder="Video Title"
           value={title}
           onChangeText={setTitle}
         />
         <TextInput
-          style={styles.input}
-          placeholder="Description:"
+          style={[styles.input, styles.textArea]}
+          placeholder="Description"
           value={description}
           onChangeText={setDescription}
           multiline
         />
+        <View style={styles.inputContainer}>
+          <Text style={[styles.label, {textAlign: 'center'}, {fontSize: 18},{ fontWeight: 'bold'},]}>Category</Text>
           <Dropdown
             style={[styles.dropdown, ageGroup && { borderColor: "blue" }]}
             data={[
-              { label: "Unknown", value: "1" },
-              { label: "Unknown", value: "2" },
-              { label: "Unknown", value: "3" },
+              { label: "General Topics - Child", value: "1" },
+              { label: "General Topics - Adult", value: "2" },
+              { label: "Transition Education", value: "3" },
+              { label: "Lesion Specific Information - Adult", value: "5" },
+              { label: "Special Topics - Child", value: "5" },
+              { label: "Special Topics - Adult", value: "6" },
+
+      
             ]}
             labelField="label"
             valueField="value"
             value={category}
-            placeholder={"Category:"}
+            placeholder={"Select an option"}
             onChange={(value) => setCategory(value)} // Update state directly
           />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={[styles.label, {textAlign: 'center'}, {fontSize: 18},{ fontWeight: 'bold'},]}>Age Group</Text>
           <Dropdown
             style={[styles.dropdown, ageGroup && { borderColor: "blue" },]}
             data={[
@@ -79,26 +87,16 @@ const AddVideo = ({ navigation }) => {
             labelField="label"
             valueField="value"
             value={ageGroup}
-            placeholder={"Age Group:"}
+            placeholder={"Select an option"}
             onChange={(value) => setAgeGroup(value)} // Update state directly
           />
-        <View style={styles.thumbnailContainer}>
-          <TextInput
-            style={styles.thumbnailInput}
-            placeholder="Choose Video"
-            value={thumbnail}
-            editable={false}
-          />
-          <TouchableOpacity style={styles.thumbnailButton} onPress={handleChooseVideo}>
-            <MaterialIcons name="photo-library" size={24} color="black" />
-          </TouchableOpacity>
         </View>
-        {thumbnail && (
-          <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
-        )}
-        <Pressable onPress={handleUploadVideo} style={styles.submitButton}>
-          <Text style={styles.submitButtonText}>Upload</Text>
-        </Pressable>
+        <View style={styles.buttonContainer}>
+          <Button title="Choose Video" onPress={handleChooseVideo} style={styles.button} />
+        </View>
+        <View style={styles.buttonContainer}>
+        <Button title="Upload Video" onPress={handleUploadVideo} style={styles.button} />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     margin: 10,
-    width: '100%', 
+    width: 250, 
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -143,46 +141,15 @@ const styles = StyleSheet.create({
 
     marginTop: 20,
   },
-  submitButton: {
-    width: "100%",
-    paddingVertical: 15,
-    backgroundColor: "#001f54",
-    borderRadius: 8,
-    alignItems: "center",
-    marginBottom: 15,
-  },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+  button: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   label: {
     marginBottom: 5,
-  },
-  thumbnailContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginBottom: 15,
-  },
-  thumbnailInput: {
-    flex: 1,
-    height: '100%',
-    borderColor: 'transparent',
-  },
-  thumbnailButton: {
-    marginLeft: 10,
-  },
-  thumbnailImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 15,
   },
 });
 
