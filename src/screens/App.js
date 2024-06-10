@@ -18,12 +18,24 @@ import AdminHomeScreen from "./AdminHomeScreen";
 import AdminNotification from "./AdminNotification";
 import NewCategoryScreen from "./NewCategoryScreen";
 
-
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        {/* <Stack.Screen
+          name="NewCategory"
+          component={NewCategoryScreen}
+          options={{ title: "New Category" }}
+        /> */}
+        {/* <Stack.Screen
+          name="AdminNotifications"
+          component={AdminNotification}
+          options={{ title: "Admin Home" }}
+        /> */}
+
+
         <Stack.Screen
           name="Login"
           component={Login}

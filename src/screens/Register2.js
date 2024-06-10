@@ -14,7 +14,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { diagnosis, raceData } from "./allthedata";
+import { diagnosis, doctors, raceData } from "./allthedata";
 
 function Register2({ navigation }) {
   const [firstNameValue, setFirstNameValue] = useState("");
@@ -197,7 +197,7 @@ function Register2({ navigation }) {
           </Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={diagnosis}
+            data={doctors}
             labelField="label"
             valueField="value"
             placeholder={"Select an option"}
