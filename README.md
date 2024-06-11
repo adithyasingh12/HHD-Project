@@ -5,7 +5,7 @@
 
 # Instructions
 
-do "npm i --legacy-peer-drops" or "npm i --force" if had issues with npm install
+do "npm i --legacy-peer-drops" or "npm i --force" if had issues with `npm install`
 
 # Google Doc
 
