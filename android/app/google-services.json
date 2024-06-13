@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "217599121794",
+    "project_id": "chc-app-cd5bd",
+    "storage_bucket": "chc-app-cd5bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217599121794:android:1876fbe4583c95014ad79b",
+        "android_client_info": {
+          "package_name": "com.hhdproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALnm8LlK4xwr4jzr4IBPwR1QbBqMliO7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
