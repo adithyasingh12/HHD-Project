@@ -13,15 +13,26 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { signUp } from "../services/firebaseauth";
+
 const logo = require("../images/logo.png");
 
 const sampleImage = require("../images/video.jpg");
 
 function Register1({ navigation }) {
-  const [username, setUsername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const handleSignUp = async () => {
+    try {
+      const user = await signUp(email, password);
+      Alert.alert("Sign Up Successful", `Welcome, ${user.email}`);
+    } catch (error) {
+      Alert.alert("Sign Up Failed", error.message);
+    }
+  };
 
   useEffect(() => {
     if (
@@ -42,8 +53,8 @@ function Register1({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setemail}
           autoCorrect={false}
           autoCapitalize="none"
         />
@@ -75,7 +86,8 @@ function Register1({ navigation }) {
       <View style={styles.buttonView}>
         <Pressable
           style={isDisabled ? styles.disabledButton : styles.button}
-          onPress={() => {
+          onPress={async () => {
+            await handleSignUp();
             navigation.navigate("Register2");
           }}
           // disabled={isDisabled}
