@@ -1,33 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, ScrollView, Dimensions, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
-const AdminHomeScreen = () => {
+const AdminHomeScreen = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <Image source={require("../images/logo.png")} style={styles.logo} />
       </View>
-      <View style={styles.optionContainer}>
-        <TouchableOpacity style={styles.iconButton}>
+      <Pressable style={styles.optionContainer} >
+        <TouchableOpacity style={styles.iconButton} onPress={() => { navigation.navigate("AddVideo"); }}>
           <MaterialIcons name="add-circle-outline" size={60} color="white" />
         </TouchableOpacity>
         <Text style={styles.optionText}>Add New Video</Text>
-      </View>
-      <View style={styles.optionContainer}>
-        <TouchableOpacity style={styles.iconButton}>
+      </Pressable>
+      <Pressable style={styles.optionContainer} >
+        <TouchableOpacity style={styles.iconButton} onPress={() => { navigation.navigate("AdminNotifications"); }}>
           <MaterialIcons name="add-circle-outline" size={60} color="white" />
         </TouchableOpacity>
         <Text style={styles.optionText}>Send Notification</Text>
-      </View>
-      <View style={styles.optionContainer}>
-        <TouchableOpacity style={styles.iconButton}>
+      </Pressable>
+      <Pressable style={styles.optionContainer}>
+        <TouchableOpacity style={styles.iconButton}  onPress={() => { navigation.navigate("NewCategory"); }}>
           <MaterialIcons name="add-circle-outline" size={60} color="white" />
         </TouchableOpacity>
         <Text style={styles.optionText}>Create New Category</Text>
-      </View>
+      </Pressable>
     </ScrollView>
   );
 };

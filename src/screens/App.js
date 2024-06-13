@@ -10,10 +10,13 @@ import Register1 from "./Register1";
 import Register2 from "./Register2";
 import HomePage from "./HomePage";
 import NotificationsScreen from "./NotificationsScreen";
+import AddVideo from "./AddVideo";
+import VideoGallery from "./VideoGallery";
 
 import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
+import AdminNotification from "./AdminNotification";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 
@@ -22,6 +25,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
       <Stack.Screen
           name="Contact"
           component={ContactInfoScreen}
@@ -43,6 +47,7 @@ const App = () => {
           component={AdminHomeScreen}
           options={{ title: "Admin Home" }}
         /> */}
+
 
         <Stack.Screen
           name="Login"
@@ -66,6 +71,11 @@ const App = () => {
           options={{ title: "Notifications" }}
         />
         <Stack.Screen
+          name="VideoGallery"
+          component={VideoGallery}
+          options={{ title: "Video Gallery" }}
+        />
+        <Stack.Screen
           name="VideoPlayer"
           component={VideoPlayerScreen}
           options={{ title: "Video Player" }}
@@ -74,6 +84,21 @@ const App = () => {
           name="EditDetails"
           component={EditDetails}
           options={{ title: "Edit Details" }}
+        />
+        <Stack.Screen
+          name="AdminNotifications"
+          component={AdminNotification}
+          options={{ title: "Admin Notifications" }}
+        />
+        <Stack.Screen
+          name="NewCategory"
+          component={NewCategoryScreen}
+          options={{ title: "New Category" }}
+        />
+        <Stack.Screen
+          name="AddVideo"
+          component={AddVideo}
+          options={{ title: "Add Video" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

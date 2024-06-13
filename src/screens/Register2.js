@@ -4,6 +4,7 @@ import {
   View,
   Text,
   TextInput,
+  Pressable,
   StyleSheet,
   TouchableOpacity,
   Button,
@@ -13,11 +14,14 @@ import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { diagnosis, doctors, raceData } from "./allthedata";
 
 function Register2({ navigation }) {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
+  const [zipCodeValue, setZipCodeValue] = useState("");
   const [diagnosisValue, setDiagnosisValue] = useState(null);
+  const [additionalDiagnosis, setAdditionalDiagnosis] = useState(null);
   const [raceValue, setRaceValue] = useState(null);
   const [birthValue, setbirthValue] = useState(null);
   const [iscardiologistValue, setIsCardiologistValue] = useState(null);
@@ -37,48 +41,6 @@ function Register2({ navigation }) {
   const showDatepicker = () => {
     setShow(true);
   };
-
-  const raceData = [
-    {
-      label: "American Indian or Alaska Native",
-      value: "american_indian_or_alaska_native",
-    },
-    { label: "Asian", value: "asian" },
-    { label: "Non-Hispanic Black", value: "non_hispanic_black" },
-    { label: "Hispanic/Latino", value: "hispanic_latino" },
-    {
-      label: "Native Hawaiian or Other Pacific Islander",
-      value: "native_hawaiian_or_other_pacific_islander",
-    },
-    { label: "Non-Hispanic White", value: "non_hispanic_white" },
-    { label: "Other Race", value: "other_race" },
-    { label: "I’d rather not answer", value: "prefer_not_to_answer" },
-  ];
-
-  const diagnosis = [
-    { label: "Atrial Septal Defect (ASD)", value: "1" },
-    { label: "Atrioventricular Canal/Septal Defect (AVCD/AVSD)", value: "2" },
-    { label: "Bicuspid aortic valve", value: "3" },
-    { label: "Coarctation of the Aorta", value: "4" },
-    { label: "D-Transposition of the Great Arteries (DTGA)", value: "5" },
-    {
-      label: "Double Outlet Right Ventricle (2 ventricle repair/Not Fontan)",
-      value: "6",
-    },
-    { label: "Ebstein's Anomaly", value: "7" },
-    { label: "Eisenmenge's Syndrome", value: "8" },
-    { label: "L-Transposition of the Great Arteries (LTGA)", value: "9" },
-    { label: "Pulmonic Stenosis", value: "10" },
-    { label: "Tetralogy of Fallot", value: "11" },
-    { label: "Single Ventricle/Fontan", value: "12" },
-    {
-      label: "Total or Partial Anomalous Pulmonary Venous Connection",
-      value: "13",
-    },
-    { label: "Truncus Arteriosus", value: "14" },
-    { label: "Ventricular Septal Defect", value: "15" },
-    { label: "Other", value: "16" },
-  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -193,11 +155,31 @@ function Register2({ navigation }) {
         </View>
 
         <View style={styles.inputContainer}>
+          <Text style={styles.label}>
+            Who is your primary congenital cardiologist:
+          </Text>
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            data={doctors}
+            labelField="label"
+            valueField="value"
+            placeholder={"Select an option"}
+            value={CardiologistValue}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setCardiologistValue(item.value);
+              setIsFocus(false);
+            }}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
           <Text style={styles.label}>Zip Code:</Text>
           <TextInput
             style={styles.textInput}
-            value={firstNameValue}
-            onChangeText={setFirstNameValue}
+            value={zipCodeValue}
+            onChangeText={setZipCodeValue}
             placeholder="Zip Code"
           />
         </View>
@@ -230,37 +212,10 @@ function Register2({ navigation }) {
             />
           </View>
         )}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>
-            Who is your primary congenital cardiologist:
-          </Text>
-          <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={diagnosis}
-            labelField="label"
-            valueField="value"
-            placeholder={"Select an option"}
-            value={CardiologistValue}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={(item) => {
-              setCardiologistValue(item.value);
-              setIsFocus(false);
-            }}
-          />
-        </View>
 
-        <Button
-          title="Register"
-          color={"#001E44"}
-          onPress={() => {
-            navigation.navigate("Home");
-            // Handle button press
-            console.log("First Name:", firstNameValue);
-            console.log("Last Name:", lastNameValue);
-            console.log("Date of Birth:", dob);
-          }}
-        />
+        <Pressable style={styles.submitButton} onPress={() => { navigation.navigate("Home"); }}>
+            <Text style={styles.submitButtonText}>Submit</Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -316,6 +271,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
+  },
+  submitButton: {
+    width: "100%",
+    paddingVertical: 15,
+    backgroundColor: "#001f54",
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

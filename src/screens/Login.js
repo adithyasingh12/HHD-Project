@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Switch,
   Text,
+  Linking,
   TextInput,
   View,
 } from "react-native";
@@ -80,8 +81,32 @@ function Login({ navigation }) {
       </View>
 
       <Text style={styles.footerText}>
-        By continuing, you agree to the Terms and Conditions.
+        By clicking “Login” or “Register,” {"\n"}you agree to our
+        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://www.pennstatehealth.org/privacy-legal-notices')}>
+          {" Terms of Service "}
+        </Text>
+         and
+        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://www.pennstatehealth.org/sites/default/files/Privacy/561-103-Privacy-Notice-PSH-Rev-11-21.pdf')}>
+          {" Privacy Policy"}
+        </Text>
+        .
       </Text>
+
+      <View>
+        <Text>{"\n"}</Text>
+      </View>
+
+      <View style={styles.buttonView}>
+        <Pressable
+          style={styles.registerButton}
+          onPress={() => {
+            navigation.navigate("AdminHome");
+          }}
+        >
+          <Text style={styles.buttonText}>Admin Login</Text>
+        </Pressable>
+      </View>
+
     </SafeAreaView>
   );
 }

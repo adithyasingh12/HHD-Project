@@ -1,46 +1,22 @@
 import React from 'react';
 import { Alert, Button, Image, ScrollView, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native'
 
-
-{/* <Pressable
-style={styles.button}
-onPress={() => {
-  navigation.navigate("Videos");
-}}
->
-<Text style={styles.buttonText}>Login</Text>
-</Pressable> */}
-
-{/* <Stack.Screen
-  name="Videos"
-  component={VideoGallery}
-  options={{ title: "Videos" }}
-/> */}
-
 const logo = require("../images/play_button.jpg");
 
 function VideoGallery({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 1</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 2</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 3</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 4</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 5</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 6</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 7</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 8</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 9</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 10</Text></View></View>
-        <View style={styles.itemContainer}><View style={styles.item}><Image source={logo}></Image><Text style={styles.name}>Category 11</Text></View></View>
-      </View> 
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Child{"\n"}</Text></View>
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Adult{"\n"}</Text></View>
+        <View style={styles.itemContainer}><Pressable style={[styles.item, styles.roundedEdges]} onPress={() => {navigation.navigate("VideoPlayer")}}><Image source={logo} style={styles.image}></Image></Pressable><Text style={styles.name}>Transition{"\n"}</Text></View>
+      </View>
     </ScrollView>
 )};
 
 const styles = StyleSheet.create({
   image : {
-    height : 160,
+    height : 150,
     width: '100%',
   },
   sampleImage : {
@@ -54,21 +30,23 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },
   itemContainer: {
-    width: '50%',
+    width: '100%',
     height: '100px',
   },
   item: {
-    padding: '8px',
-    margin: '8px',
     backgroundColor: '#EEEEEE',
-    height: "calc(100% - 8px)",
+    height: '100px',
+    overflow: "hidden",
   },
   name: {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 14,
     marginTop: 0,
-  }
+  },
+  roundedEdges: {
+    borderRadius: 30,
+  },
 });
 
 export default VideoGallery;
