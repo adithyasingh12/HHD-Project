@@ -73,7 +73,7 @@ const HomePage = ({navigation}) => {
           <Text style={styles.centeredBoldText}>Notifications</Text>
         </Pressable>
 
-        <Pressable onPress={onPressFunction}>
+        <Pressable onPress={() => { navigation.navigate("Contact"); }}>
           <Image
             source={require("../images/box4.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
