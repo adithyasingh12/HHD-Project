@@ -20,6 +20,8 @@ https://www.figma.com/design/4E3qyqJzuM5PHR7cxgoXxV/HHD-Project?node-id=0-1&t=2n
 
 https://rnfirebase.io/
 
+npm install --save @react-native-firebase/app
+
 # Packages Used
 
 - **react-native-datepicker**: ^1.7.2
