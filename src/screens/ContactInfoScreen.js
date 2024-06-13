@@ -11,11 +11,11 @@ const ContactInfoScreen = () => {
       </Text>
       <Text style={styles.text}>Call to Schedule: 1-717-531-8909</Text>
       <Text style={styles.sectionTitle}>Locations:</Text>
-      <Text style={styles.text}>    · PSH Specialty Clinic 121 Nyes Road Suite D Harrisburg, PA</Text>
-      <Text style={styles.text}>    · PSH Pediatric Specialties Clinic 130 Leader Heights Rd York, PA</Text>
-      <Text style={styles.text}>    · PSH Children’s Lancaster pediatric Center 1430 Harrisburg Pike Lancaster, PA</Text>
-      <Text style={styles.text}>    · PSH Pediatric Specialties Clinic 655 Walnut St West Reading, PA</Text>
-      <Text style={styles.text}>    · PSH Medical Group 303 Benner Pike State College, PA</Text>
+      <Text style={styles.text}>PSH Specialty Clinic{"\n"}121 Nyes Road Suite D Harrisburg, PA</Text>
+      <Text style={styles.text}>PSH Pediatric Specialties Clinic{"\n"}130 Leader Heights Rd York, PA</Text>
+      <Text style={styles.text}>PSH Children’s Lancaster pediatric Center{"\n"}1430 Harrisburg Pike Lancaster, PA</Text>
+      <Text style={styles.text}>PSH Pediatric Specialties Clinic{"\n"}655 Walnut St West Reading, PA</Text>
+      <Text style={styles.text}>PSH Medical Group{"\n"}303 Benner Pike State College, PA</Text>
 
       <Text style={styles.sectionTitle}>Adult Congenital Heart Disease</Text>
       <Text style={styles.text}>Call to Schedule: 1-877-467-7484 (8am-5pm)</Text>
@@ -28,7 +28,7 @@ const ContactInfoScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: 'center',
+    alignItems: 'left',
     padding: 20,
     backgroundColor: '#fff',
   },
