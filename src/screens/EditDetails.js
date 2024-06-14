@@ -27,7 +27,7 @@ function EditDetails({ navigation }) {
   const [lastNameValue, setLastNameValue] = useState(userData.last_name);
   const [diagnosisValue, setDiagnosisValue] = useState(userData.diagnosis);
   const [additionalDiagnosis, setAdditionalDiagnosis] = useState(
-    userData.additionalDiagnosis
+    userData.additional_diagnosis
   );
   const [raceValue, setRaceValue] = useState(userData.race);
   const [birthValue, setbirthValue] = useState(userData.sex);
