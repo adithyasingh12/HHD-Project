@@ -2,6 +2,8 @@
 
 import auth from "@react-native-firebase/auth";
 
+
+
 // Function to sign up a user
 export const signUp = async (email, password) => {
   try {

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import {React, useContext, useState } from "react";
 import {
+  createContext,
   SafeAreaView,
   View,
   Text,
@@ -15,12 +16,20 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { diagnosis, doctors, raceData } from "./allthedata";
+import firestore from '@react-native-firebase/firestore';
+import { UserContext } from '../services/UserContext';
+
+// export const getDetails = async (uid, data) => {
+//   const user = await firestore().collection('UserPost').doc(uid).get(data);
+// }
 
 function EditDetails({ navigation }) {
-  const [firstNameValue, setFirstNameValue] = useState("");
-  const [lastNameValue, setLastNameValue] = useState("");
-  const [diagnosisValue, setDiagnosisValue] = useState(null);
+  const { user } = useContext(UserContext);
+  const [firstNameValue, setFirstNameValue] = useState(user.first_name);
+  const [lastNameValue, setLastNameValue] = useState(user.first_name);
+  const [diagnosisValue, setDiagnosisValue] = useState(user.diagnosis);
   const [additionalDiagnosis, setAdditionalDiagnosis] = useState(null);
+  const [zipCodeValue, setZipCodeValue] = useState(user.zipcode)
   const [raceValue, setRaceValue] = useState(null);
   const [birthValue, setbirthValue] = useState(null);
   const [iscardiologistValue, setIsCardiologistValue] = useState(null);
@@ -45,12 +54,12 @@ function EditDetails({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>First Name:</Text>
+          <Text style={styles.label}>First Name</Text>
           <TextInput
             style={styles.textInput}
             value={firstNameValue}
             onChangeText={setFirstNameValue}
-            placeholder="Enter first name"
+            placeholder="First Name:"
           />
         </View>
 
@@ -58,9 +67,9 @@ function EditDetails({ navigation }) {
           <Text style={styles.label}>Last Name:</Text>
           <TextInput
             style={styles.textInput}
-            value={lastNameValue}
+            value={user.last_name}
             onChangeText={setLastNameValue}
-            placeholder="Enter last name"
+            placeholder="Last Name:"
           />
         </View>
 
@@ -177,8 +186,8 @@ function EditDetails({ navigation }) {
           <Text style={styles.label}>Zip Code:</Text>
           <TextInput
             style={styles.textInput}
-            value={firstNameValue}
-            onChangeText={setFirstNameValue}
+            value={zipCodeValue}
+            onChangeText={setZipCodeValue}
             placeholder="Zip Code"
           />
         </View>

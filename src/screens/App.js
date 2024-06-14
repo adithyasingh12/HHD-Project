@@ -14,6 +14,7 @@ import AddVideo from "./AddVideo";
 import VideoGallery from "./VideoGallery";
 
 import VideoPlayerScreen from "./VideoPlayer";
+import { UserProvider } from '../services/UserContext';
 
 import AdminHomeScreen from "./AdminHomeScreen";
 import AdminNotification from "./AdminNotification";
@@ -23,6 +24,7 @@ import ContactInfoScreen from "./ContactInfoScreen";
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
+    <UserProvider>
     <NavigationContainer>
       <Stack.Navigator>
 
@@ -97,6 +99,7 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </UserProvider>
   );
 };
 
