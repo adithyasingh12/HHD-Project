@@ -25,15 +25,6 @@ function Register1({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleSignUp = async () => {
-    try {
-      const user = await signUp(email, password);
-      Alert.alert("Sign Up Successful", `Welcome, ${user.email}`);
-    } catch (error) {
-      Alert.alert("Sign Up Failed", error.message);
-    }
-  };
-
   useEffect(() => {
     if (
       password.length >= 8 &&
@@ -87,8 +78,7 @@ function Register1({ navigation }) {
         <Pressable
           style={isDisabled ? styles.disabledButton : styles.button}
           onPress={async () => {
-            await handleSignUp();
-            navigation.navigate("Register2");
+            navigation.navigate("Register2", { email, password });
           }}
           // disabled={isDisabled}
         >

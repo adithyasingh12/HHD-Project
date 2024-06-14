@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   SafeAreaView,
   View,
   Text,
@@ -15,8 +16,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { diagnosis, doctors, raceData } from "./allthedata";
+import { addUserData } from "../services/firebasefirestore";
+import { signUp } from "../services/firebaseauth";
 
-function Register2({ navigation }) {
+function Register2({ route, navigation }) {
+  const { email, password } = route.params;
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
   const [zipCodeValue, setZipCodeValue] = useState("");
@@ -40,6 +44,17 @@ function Register2({ navigation }) {
 
   const showDatepicker = () => {
     setShow(true);
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const user = await signUp(email, password);
+      Alert.alert("Sign Up Successful", `Welcome, ${user.email}`);
+      return user;
+    } catch (error) {
+      Alert.alert("Sign Up Failed", error.message);
+      return null;
+    }
   };
 
   return (
@@ -213,8 +228,27 @@ function Register2({ navigation }) {
           </View>
         )}
 
-        <Pressable style={styles.submitButton} onPress={() => { navigation.navigate("Home"); }}>
-            <Text style={styles.submitButtonText}>Submit</Text>
+        <Pressable
+          style={styles.submitButton}
+          onPress={async () => {
+            const user = await handleSignUp();
+            const userid = user.uid;
+            console.log(userid);
+            await addUserData(userid, {
+              first_name: firstNameValue,
+              last_name: lastNameValue,
+              dob: dob,
+              sex: birthValue,
+              race: raceValue,
+              isCardiologist: iscardiologistValue,
+              cardiologist: CardiologistValue,
+              zipcode: zipCodeValue,
+              diagnosis: diagnosisValue,
+            });
+            navigation.navigate("Home");
+          }}
+        >
+          <Text style={styles.submitButtonText}>Submit</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -281,9 +315,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   submitButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

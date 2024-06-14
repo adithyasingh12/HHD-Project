@@ -14,14 +14,28 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { signIn } from "../services/firebaseauth";
+
 const logo = require("../images/logo.png");
 
 const sampleImage = require("../images/video.jpg");
 
 function Login({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [click, setClick] = useState(false);
-  const { username, setUsername } = useState("");
-  const { password, setPassword } = useState("");
+
+  const handleSignIn = async () => {
+    try {
+      const user = await signIn(username, password);
+      Alert.alert("Sign In Successful", `Welcome back, ${user.email}`);
+      return true;
+    } catch (error) {
+      Alert.alert("Sign In Failed", error.message);
+      return false;
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.image} resizeMode="contain" />
@@ -44,17 +58,14 @@ function Login({ navigation }) {
           autoCapitalize="none"
         />
       </View>
-      {/* <View>
-              <Pressable onPress={() => Alert.alert("Forget Password!")}>
-                  <Text style={styles.forgetText}>Forgot Password?</Text>
-              </Pressable>
-          </View> */}
-
       <View style={styles.buttonView}>
         <Pressable
           style={styles.button}
-          onPress={() => {
-            navigation.navigate("Home");
+          onPress={async () => {
+            const signInSuccess = await handleSignIn();
+            if (signInSuccess) {
+              navigation.navigate("Home");
+            }
           }}
         >
           <Text style={styles.buttonText}>Login</Text>
@@ -64,7 +75,6 @@ function Login({ navigation }) {
         <Text>{"\n"}</Text>
       </View>
       <Text style={styles.footerText}>Don't Have Account?</Text>
-
       <View style={styles.buttonView}>
         <Pressable
           style={styles.registerButton}
@@ -75,27 +85,37 @@ function Login({ navigation }) {
           <Text style={styles.buttonText}>Register</Text>
         </Pressable>
       </View>
-
       <View>
         <Text>{"\n"}</Text>
       </View>
-
       <Text style={styles.footerText}>
         By clicking “Login” or “Register,” {"\n"}you agree to our
-        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://www.pennstatehealth.org/privacy-legal-notices')}>
+        <Text
+          style={{ color: "blue" }}
+          onPress={() =>
+            Linking.openURL(
+              "https://www.pennstatehealth.org/privacy-legal-notices"
+            )
+          }
+        >
           {" Terms of Service "}
         </Text>
-         and
-        <Text style={{color: 'blue'}} onPress={() => Linking.openURL('https://www.pennstatehealth.org/sites/default/files/Privacy/561-103-Privacy-Notice-PSH-Rev-11-21.pdf')}>
+        and
+        <Text
+          style={{ color: "blue" }}
+          onPress={() =>
+            Linking.openURL(
+              "https://www.pennstatehealth.org/sites/default/files/Privacy/561-103-Privacy-Notice-PSH-Rev-11-21.pdf"
+            )
+          }
+        >
           {" Privacy Policy"}
         </Text>
         .
       </Text>
-
       <View>
         <Text>{"\n"}</Text>
       </View>
-
       <View style={styles.buttonView}>
         <Pressable
           style={styles.registerButton}
@@ -106,7 +126,6 @@ function Login({ navigation }) {
           <Text style={styles.buttonText}>Admin Login</Text>
         </Pressable>
       </View>
-
     </SafeAreaView>
   );
 }
