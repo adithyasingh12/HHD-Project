@@ -27,7 +27,7 @@ function Register2({ route, navigation }) {
   const [diagnosisValue, setDiagnosisValue] = useState(null);
   const [additionalDiagnosis, setAdditionalDiagnosis] = useState(null);
   const [raceValue, setRaceValue] = useState(null);
-  const [birthValue, setbirthValue] = useState(null);
+  const [birthValue, setBirthValue] = useState(null);
   const [iscardiologistValue, setIsCardiologistValue] = useState(null);
   const [CardiologistValue, setCardiologistValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -87,7 +87,7 @@ function Register2({ route, navigation }) {
               style={styles.textInput}
               value={dob}
               placeholder="YYYY-MM-DD"
-              editable={true} // Make the text input non-editable
+              editable={true} // Make the text input editable
             />
             <TouchableOpacity
               style={styles.iconContainer}
@@ -112,9 +112,9 @@ function Register2({ route, navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={[
-              { label: "Male", value: "1" },
-              { label: "Female", value: "2" },
-              { label: "Rather not answer", value: "3" },
+              { label: "Male", value: "Male" },
+              { label: "Female", value: "Female" },
+              { label: "Rather not answer", value: "Rather not answer" },
             ]}
             labelField="label"
             valueField="value"
@@ -123,7 +123,7 @@ function Register2({ route, navigation }) {
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={(item) => {
-              setbirthValue(item.value);
+              setBirthValue(item.value);
               setIsFocus(false);
             }}
           />
@@ -132,7 +132,10 @@ function Register2({ route, navigation }) {
           <Text style={styles.label}>Select race:</Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={raceData}
+            data={raceData.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select an option"}
@@ -152,9 +155,12 @@ function Register2({ route, navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={[
-              { label: "Yes", value: "1" },
-              { label: "No", value: "2" },
-              { label: "I'd rather not answer", value: "3" },
+              { label: "Yes", value: "Yes" },
+              { label: "No", value: "No" },
+              {
+                label: "I'd rather not answer",
+                value: "I'd rather not answer",
+              },
             ]}
             labelField="label"
             valueField="value"
@@ -175,7 +181,10 @@ function Register2({ route, navigation }) {
           </Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={doctors}
+            data={doctors.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select an option"}
@@ -203,7 +212,10 @@ function Register2({ route, navigation }) {
           <Text style={styles.label}>Select Diagnosis:</Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={diagnosis}
+            data={diagnosis.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select your diagnosis"}
@@ -216,7 +228,7 @@ function Register2({ route, navigation }) {
             }}
           />
         </View>
-        {diagnosisValue === "16" && (
+        {diagnosisValue === "Other" && (
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Additional Diagnosis Information:</Text>
             <TextInput
@@ -232,20 +244,23 @@ function Register2({ route, navigation }) {
           style={styles.submitButton}
           onPress={async () => {
             const user = await handleSignUp();
-            const userid = user.uid;
-            console.log(userid);
-            await addUserData(userid, {
-              first_name: firstNameValue,
-              last_name: lastNameValue,
-              dob: dob,
-              sex: birthValue,
-              race: raceValue,
-              isCardiologist: iscardiologistValue,
-              cardiologist: CardiologistValue,
-              zipcode: zipCodeValue,
-              diagnosis: diagnosisValue,
-            });
-            navigation.navigate("Home");
+            if (user) {
+              const userid = user.uid;
+              await addUserData(userid, {
+                first_name: firstNameValue,
+                last_name: lastNameValue,
+                dob: dob,
+                sex: birthValue,
+                race: raceValue,
+                isCardiologist: iscardiologistValue,
+                cardiologist: CardiologistValue,
+                zipcode: zipCodeValue,
+                diagnosis: diagnosisValue,
+                additional_diagnosis:
+                  diagnosisValue === "Other" ? additionalDiagnosis : null,
+              });
+              navigation.navigate("Home");
+            }
           }}
         >
           <Text style={styles.submitButtonText}>Submit</Text>
