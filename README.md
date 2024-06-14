@@ -15,7 +15,6 @@ https://docs.google.com/document/d/17I_UG_9WQw91K_9aN2IOVWiWzlE7L7dEhPs-3BegPr0/
 
 https://www.figma.com/design/4E3qyqJzuM5PHR7cxgoXxV/HHD-Project?node-id=0-1&t=2nhYFal0RSz0ztqc-0
 
-
 # React - firebase resource
 
 https://rnfirebase.io/
@@ -34,4 +33,4 @@ npm install --save @react-native-firebase/app
 - **react-native-ui-datepicker**: ^2.0.3
 - **react-native-vector-icons**: ^10.1.0
 - **react-native-video**: ^6.1.2
-
+- **react-native-sectioned-multi-select**

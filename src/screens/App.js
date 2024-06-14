@@ -25,22 +25,26 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         <Stack.Screen
           name="Login"
           component={Login}
           options={{ title: "Login" }}
         />
-        <Stack.Screen
-          name="Register1"
-          component={Register1}
-          options={{ title: "Register1" }}
-        />
+       
         <Stack.Screen
           name="AdminHome"
           component={AdminHomeScreen}
           options={{ title: "Admin Home" }}
         />
-        
+
+        <Stack.Screen
+          name="Register1"
+          component={Register1}
+          options={{ title: "Register1" }}
+        />
+
+
         <Stack.Screen
           name="Register2"
           component={Register2}
