@@ -80,7 +80,7 @@ function Register1({ navigation }) {
           onPress={async () => {
             navigation.navigate("Register2", { email, password });
           }}
-          // disabled={isDisabled}
+          disabled={isDisabled}
         >
           <Text style={styles.buttonText}>Next</Text>
         </Pressable>

@@ -25,13 +25,12 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
         <Stack.Screen
           name="Login"
           component={Login}
           options={{ title: "Login" }}
         />
-       
+
         <Stack.Screen
           name="AdminHome"
           component={AdminHomeScreen}
@@ -43,7 +42,6 @@ const App = () => {
           component={Register1}
           options={{ title: "Register1" }}
         />
-
 
         <Stack.Screen
           name="Register2"
