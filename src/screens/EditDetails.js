@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -15,20 +15,33 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { diagnosis, doctors, raceData } from "./allthedata";
+import AuthContext from "../context/authContext";
+import UserDataContext from "../context/userContext";
+import { updateUserData } from "../services/firebasefirestore";
 
 function EditDetails({ navigation }) {
-  const [firstNameValue, setFirstNameValue] = useState("");
-  const [lastNameValue, setLastNameValue] = useState("");
-  const [diagnosisValue, setDiagnosisValue] = useState(null);
-  const [additionalDiagnosis, setAdditionalDiagnosis] = useState(null);
-  const [raceValue, setRaceValue] = useState(null);
-  const [birthValue, setbirthValue] = useState(null);
-  const [iscardiologistValue, setIsCardiologistValue] = useState(null);
-  const [CardiologistValue, setCardiologistValue] = useState(null);
+  const { userData, setUserData } = useContext(UserDataContext);
+  const { user, setUser } = useContext(AuthContext);
+
+  const [firstNameValue, setFirstNameValue] = useState(userData.first_name);
+  const [lastNameValue, setLastNameValue] = useState(userData.last_name);
+  const [diagnosisValue, setDiagnosisValue] = useState(userData.diagnosis);
+  const [additionalDiagnosis, setAdditionalDiagnosis] = useState(
+    userData.additionalDiagnosis
+  );
+  const [raceValue, setRaceValue] = useState(userData.race);
+  const [birthValue, setbirthValue] = useState(userData.sex);
+  const [iscardiologistValue, setIsCardiologistValue] = useState(
+    userData.isCardiologist
+  );
+  const [CardiologistValue, setCardiologistValue] = useState(
+    userData.cardiologist
+  );
   const [isFocus, setIsFocus] = useState(false);
+  const [zipCode, setzipCode] = useState(userData.zipcode);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(userData.dob);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -40,6 +53,7 @@ function EditDetails({ navigation }) {
   const showDatepicker = () => {
     setShow(true);
   };
+  console.log(userData);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,9 +110,9 @@ function EditDetails({ navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={[
-              { label: "Male", value: "1" },
-              { label: "Female", value: "2" },
-              { label: "Rather not answer", value: "3" },
+              { label: "Male", value: "Male" },
+              { label: "Female", value: "Female" },
+              { label: "Rather not answer", value: "Rather not answer" },
             ]}
             labelField="label"
             valueField="value"
@@ -107,7 +121,7 @@ function EditDetails({ navigation }) {
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={(item) => {
-              setbirthValue(item.value);
+              setBirthValue(item.value);
               setIsFocus(false);
             }}
           />
@@ -116,7 +130,10 @@ function EditDetails({ navigation }) {
           <Text style={styles.label}>Select race:</Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={raceData}
+            data={raceData.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select an option"}
@@ -136,9 +153,12 @@ function EditDetails({ navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={[
-              { label: "Yes", value: "1" },
-              { label: "No", value: "2" },
-              { label: "I'd rather not answer", value: "3" },
+              { label: "Yes", value: "Yes" },
+              { label: "No", value: "No" },
+              {
+                label: "I'd rather not answer",
+                value: "I'd rather not answer",
+              },
             ]}
             labelField="label"
             valueField="value"
@@ -159,7 +179,10 @@ function EditDetails({ navigation }) {
           </Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={doctors}
+            data={doctors.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select an option"}
@@ -177,8 +200,8 @@ function EditDetails({ navigation }) {
           <Text style={styles.label}>Zip Code:</Text>
           <TextInput
             style={styles.textInput}
-            value={firstNameValue}
-            onChangeText={setFirstNameValue}
+            value={zipCode}
+            onChangeText={setzipCode}
             placeholder="Zip Code"
           />
         </View>
@@ -187,7 +210,10 @@ function EditDetails({ navigation }) {
           <Text style={styles.label}>Select Diagnosis:</Text>
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            data={diagnosis}
+            data={diagnosis.map((item) => ({
+              label: item.label,
+              value: item.label,
+            }))}
             labelField="label"
             valueField="value"
             placeholder={"Select your diagnosis"}
@@ -200,7 +226,7 @@ function EditDetails({ navigation }) {
             }}
           />
         </View>
-        {diagnosisValue === "16" && (
+        {diagnosisValue === "Other" && (
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Additional Diagnosis Information:</Text>
             <TextInput
@@ -212,8 +238,26 @@ function EditDetails({ navigation }) {
           </View>
         )}
 
-        <Pressable style={styles.submitButton} onPress={() => { navigation.navigate("Home"); }}>
-            <Text style={styles.submitButtonText}>Submit</Text>
+        <Pressable
+          style={styles.submitButton}
+          onPress={async () => {
+            await updateUserData(user.uid, {
+              first_name: firstNameValue,
+              last_name: lastNameValue,
+              dob: dob,
+              sex: birthValue,
+              race: raceValue,
+              isCardiologist: iscardiologistValue,
+              cardiologist: CardiologistValue,
+              zipcode: zipCode,
+              diagnosis: diagnosisValue,
+              additional_diagnosis:
+                diagnosisValue === "Other" ? additionalDiagnosis : null,
+            });
+            navigation.navigate("Home");
+          }}
+        >
+          <Text style={styles.submitButtonText}>Submit</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -271,9 +315,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   submitButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

@@ -1,5 +1,5 @@
 // firebaseauth.js
-
+import React, { createContext, useState, useEffect } from "react";
 import auth from "@react-native-firebase/auth";
 
 // Function to sign up a user

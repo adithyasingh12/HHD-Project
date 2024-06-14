@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Alert,
   Button,
@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import { signIn } from "../services/firebaseauth";
+import AuthContext from "../context/authContext";
 
 const logo = require("../images/logo.png");
 
@@ -24,10 +25,12 @@ function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [click, setClick] = useState(false);
+  const { setUser } = useContext(AuthContext);
 
   const handleSignIn = async () => {
     try {
       const user = await signIn(username, password);
+      await setUser(user);
       Alert.alert("Sign In Successful", `Welcome back, ${user.email}`);
       return true;
     } catch (error) {
