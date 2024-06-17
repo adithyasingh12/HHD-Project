@@ -13,7 +13,6 @@ const { width } = Dimensions.get('window');
 const NewCategoryScreen = ({navigation}) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [ageGroup, setAgeGroup] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -41,7 +40,6 @@ const NewCategoryScreen = ({navigation}) => {
       }
       const categoryData = {
         title: title,
-        description: description,
         thumbnail: thumbnail, 
       };
       const categoryId = await addCategoryData(categoryData, selectedItems);
@@ -51,7 +49,6 @@ const NewCategoryScreen = ({navigation}) => {
       
   
       setTitle('');
-      setDescription('');
       setThumbnail(null);
     } catch (error) {
       console.error('Failed to create category: ', error);
@@ -67,12 +64,7 @@ const NewCategoryScreen = ({navigation}) => {
           value={title}
           onChangeText={setTitle}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
+        
 
           <SectionedMultiSelect
           items={[
