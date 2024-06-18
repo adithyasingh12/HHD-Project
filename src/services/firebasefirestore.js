@@ -36,3 +36,14 @@ export const addCategoryData = async (categoryData, selectedItems, navigation) =
   }
   
 };
+
+export const addVideoData = async (videoData) => {
+  try {
+    await firestore().collection("VideoPost").add(videoData); // Correct usage of add
+    console.log("Video data successfully added!");
+  } catch (error) {
+    console.error("Error adding video data: ", error);
+  }
+
+};
+
