@@ -27,14 +27,15 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <AuthProvider>
-      <UserDataProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ title: "Login" }}
-            />
+    <UserDataProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ title: "Login" }}
+        />
 
             <Stack.Screen
               name="AdminHome"
@@ -47,6 +48,7 @@ const App = () => {
               component={Register1}
               options={{ title: "Register1" }}
             />
+
 
             <Stack.Screen
               name="Register2"
@@ -106,6 +108,7 @@ const App = () => {
           </Stack.Navigator>
         </NavigationContainer>
       </UserDataProvider>
+
     </AuthProvider>
   );
 };

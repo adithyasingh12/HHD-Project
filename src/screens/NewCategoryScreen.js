@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Text, navigation, StyleSheet, Pressable,  TextInput, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { addCategoryData } from "../services/firebasefirestore";
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import firestore from '@react-native-firebase/firestore';
+
 
 const { width } = Dimensions.get('window');
 
-const NewCategoryScreen = () => {
+
+const NewCategoryScreen = ({navigation}) => {
   const [thumbnail, setThumbnail] = useState(null);
+  const [title, setTitle] = useState('');
+  const [ageGroup, setAgeGroup] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+
 
   const handleSelectThumbnail = () => {
     const options = {
@@ -23,17 +32,64 @@ const NewCategoryScreen = () => {
     });
   };
 
+  const handleCreateCategory = async () => {
+    try {
+      if (!title.trim()) {
+        Alert.alert('Error', 'Please enter a title.');
+        return;
+      }
+      const categoryData = {
+        title: title,
+        thumbnail: thumbnail, 
+      };
+      const categoryId = await addCategoryData(categoryData, selectedItems);
+      if (categoryId) {
+        navigation.navigate("Home");
+      }
+      
+  
+      setTitle('');
+      setThumbnail(null);
+    } catch (error) {
+      console.error('Failed to create category: ', error);
+      
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Title"
+          placeholder="Sub-Category Title"
+          value={title}
+          onChangeText={setTitle}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
+        
+
+          <SectionedMultiSelect
+          items={[
+            {id:'1',name:'Child' },
+            {id:'2',name:'Adult' },
+            {id:'3',name:'Transition Education'},
+          ]}
+          uniqueKey="id"
+          onSelectedItemsChange={setSelectedItems}
+          selectedItems={selectedItems}
+          selectText="Age Group/Category"
+          searchPlaceholderText="Choose Categories..."
+          confirmText="Select"
+          IconRenderer={MaterialIcons}
+          styles={{
+  
+            selectToggle: styles.dropdown,
+            chipText: styles.chipText,
+            itemText: styles.itemText,
+            subItemText: styles.subItemText,
+            selectedItemText: styles.selectedItemText,
+          }}
         />
+
+
         <View style={styles.thumbnailContainer}>
           <TextInput
             style={styles.thumbnailInput}
@@ -48,10 +104,14 @@ const NewCategoryScreen = () => {
         {thumbnail && (
           <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
         )}
-        <TouchableOpacity style={styles.createButton}>
+
+        <Pressable
+          style={styles.createButton}
+          onPress={handleCreateCategory}
+        >
           <Text style={styles.createButtonText}>Create</Text>
-        </TouchableOpacity>
-      </View>
+        </Pressable>
+
     </View>
   );
 };
@@ -61,19 +121,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 20,
+    
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
+  dropdown: {
+    margin: 1,
+    marginBottom: 12,
+    width: '100%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    
   },
-  headerText: {
-    fontSize: 20,
+  chipText: {
+    fontSize: 16,
+    
+  },
+  itemText: {
+    fontSize: 22,
+    fontWeight: 'light',
+  },
+  selectedItemText: {
+    fontSize: 24,
     fontWeight: 'bold',
-    marginLeft: 10,
-  },
-  form: {
-    alignItems: 'center',
   },
   input: {
     width: width * 0.9,
