@@ -1,5 +1,32 @@
 import firebase from "@react-native-firebase/app";
-import firestore from "@react-native-firebase/firestore";
+import firestore, { query } from "@react-native-firebase/firestore";
+import { useNavigationBuilder } from "@react-navigation/native";
+import { diagnosis } from "../screens/allthedata";
+
+import { parse } from "date-fns"; // Install date-fns if not already installed: npm install date-fns
+import { useState } from "react";
+
+const calculateAge = (dob) => {
+  const today = new Date();
+  const birthDate = parse(dob, "yyyy-MM-dd", new Date()); // Use a flexible date format parser
+
+  if (isNaN(birthDate.getTime())) {
+    return null; // Handle invalid date format
+  }
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const month = today.getMonth();
+  const birthMonth = birthDate.getMonth();
+
+  if (
+    month < birthMonth ||
+    (month === birthMonth && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+};
 
 export const addUserData = async (uid, data) => {
   try {
@@ -16,5 +43,120 @@ export const updateUserData = async (uid, data) => {
     console.log("Document successfully written!");
   } catch (error) {
     console.error("Error writing document: ", error);
+  }
+};
+
+export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
+  try {
+    let ageG = "";
+    const age = calculateAge(ageGroup);
+    console.log(age);
+    if (age <= 14) {
+      ageG = "Pediatric";
+    } else if (age > 14 && age <= 17) {
+      ageG = "Transition";
+    } else {
+      ageG = "Adult";
+    }
+    await firestore()
+      .collection("NotificationPost")
+      .doc(diagnosis)
+      .collection(ageG)
+      .doc(notifId)
+      .update({ users: firestore.FieldValue.arrayUnion(email) });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const pushNotification = async (diagnoses, ages, data) => {
+  try {
+    // Handle single or multiple values for diagnoses and ages gracefully
+    diagnoses = Array.isArray(diagnoses) ? diagnoses : [diagnoses];
+    ages = Array.isArray(ages) ? ages : [ages];
+
+    // Iterate through each combination of diagnosis and age
+    for (const diagnosis of diagnoses) {
+      for (const age of ages) {
+        await firestore()
+          .collection("NotificationPost")
+          .doc(diagnosis)
+          .collection(age)
+          .add({
+            title: data.title,
+            description: data.description,
+            isResearch: data.isResearch,
+          }); // Use set() for overwriting existing data (if needed)
+      }
+    }
+
+    console.log("Documents successfully added!");
+  } catch (error) {
+    console.error("Error writing documents:", error);
+  }
+};
+
+export const getNotifications = async (userData) => {
+  try {
+    let agegroup = "";
+
+    const age = calculateAge(userData.dob);
+    console.log(age);
+    if (age <= 14) {
+      agegroup = "Pediatric";
+    } else if (age > 14 && age <= 17) {
+      agegroup = "Transition";
+    } else {
+      agegroup = "Adult";
+    }
+    let notifs = [];
+    const querySnapshot = await firestore()
+      .collection("NotificationPost")
+      .doc(userData.diagnosis)
+      .collection(agegroup)
+      .get();
+    querySnapshot.forEach((documentSnapshot) => {
+      console.log("User ID: ", documentSnapshot.id, documentSnapshot.data());
+      notifs.push(documentSnapshot);
+    });
+
+    console.log("Document successfully read", notifs);
+    return notifs;
+  } catch (error) {
+    console.error("Error writing document", error);
+    return [];
+  }
+};
+
+export const getAdminNotifications = async (agegroup, diagnoses) => {
+  try {
+    let notifs = [];
+
+    for (const diagnosis of diagnoses) {
+      for (const age of agegroup) {
+        console.log(diagnosis, age);
+        const querySnapshot = await firestore()
+          .collection("NotificationPost")
+          .doc(diagnosis)
+          .collection(age)
+          .get(); // Use set() for overwriting existing data (if needed)
+        console.log(querySnapshot.docs);
+        querySnapshot.forEach((documentSnapshot) => {
+          console.log("hi", documentSnapshot);
+          console.log(
+            "User ID: ",
+            documentSnapshot.id,
+            documentSnapshot.data()
+          );
+          notifs.push(documentSnapshot);
+        });
+      }
+    }
+
+    console.log("Document successfully read", notifs);
+    return notifs;
+  } catch (error) {
+    console.error("Error writing document", error);
+    return [];
   }
 };

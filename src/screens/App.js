@@ -21,6 +21,7 @@ import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
+import AdminManageNotifications from "./AdminManageNotifications";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -86,6 +87,11 @@ const App = () => {
               name="AdminNotifications"
               component={AdminNotification}
               options={{ title: "Admin Notifications" }}
+            />
+            <Stack.Screen
+              name="AdminManageNotifications"
+              component={AdminManageNotifications}
+              options={{ title: "Manage Notifications" }}
             />
             <Stack.Screen
               name="NewCategory"

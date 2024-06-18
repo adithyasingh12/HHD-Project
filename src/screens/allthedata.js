@@ -17,12 +17,15 @@ const raceData = [
 
 const diagnosis = [
   { label: "Atrial Septal Defect (ASD)", value: "1" },
-  { label: "Atrioventricular Canal/Septal Defect (AVCD/AVSD)", value: "2" },
+  {
+    label: "Atrioventricular Canal or Septal Defect (AVCD or AVSD)",
+    value: "2",
+  },
   { label: "Bicuspid aortic valve", value: "3" },
   { label: "Coarctation of the Aorta", value: "4" },
   { label: "D-Transposition of the Great Arteries (DTGA)", value: "5" },
   {
-    label: "Double Outlet Right Ventricle (2 ventricle repair/Not Fontan)",
+    label: "Double Outlet Right Ventricle (2 ventricle repair or Not Fontan)",
     value: "6",
   },
   { label: "Ebstein's Anomaly", value: "7" },
@@ -30,7 +33,7 @@ const diagnosis = [
   { label: "L-Transposition of the Great Arteries (LTGA)", value: "9" },
   { label: "Pulmonic Stenosis", value: "10" },
   { label: "Tetralogy of Fallot", value: "11" },
-  { label: "Single Ventricle/Fontan", value: "12" },
+  { label: "Single Ventricle or Fontan", value: "12" },
   {
     label: "Total or Partial Anomalous Pulmonary Venous Connection",
     value: "13",
@@ -58,7 +61,7 @@ const doctors = [
   { label: "Robert Tunks, MD", value: "15" },
   { label: "Howard Weber, MD", value: "16" },
   { label: "Timothy Wolfe, MD", value: "17" },
-  {label: "Other", value: "18"}
+  { label: "Other", value: "18" },
 ];
 
 export { raceData, diagnosis, doctors };
