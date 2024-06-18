@@ -19,6 +19,7 @@
     "@react-native-firebase/storage": "^20.1.0",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "expo": "~51.0.9",
     "expo-status-bar": "~1.12.1",

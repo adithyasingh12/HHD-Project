@@ -7,9 +7,12 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { Provider, DefaultTheme, Menu, Button } from "react-native-paper";
 import { diagnosis } from "./allthedata";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { pushNotification } from "../services/firebasefirestore";
 
 const theme = {
   ...DefaultTheme,
@@ -22,26 +25,54 @@ const theme = {
 };
 
 const AdminNotification = ({ navigation }) => {
-  const [ageGroupValue, setAgeGroupValue] = useState(null);
-  const [diagnosisValue, setDiagnosisValue] = useState(null);
+  const [ageGroupValue, setAgeGroupValue] = useState([]);
+  const [diagnosisValue, setDiagnosisValue] = useState([]);
   const [notifTypeValue, setNotifTypeValue] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [ageGroup, setAgeGroup] = useState("");
-  const [researchPreset, onChangeResearch] = useState('Your congenital heart team has identified you as someone potentially eligible for a current study being conducted on congenital heart disease. Would you like to be contacted about this study?');
-  const [cathPreset, onChangeCath] = useState('You are scheduled for an upcoming heart catheterization at Penn State Health’s Congenital Heart Center. Enclosed, you will find instructions for this procedure:');
-  const [surgeryPreset, onChangeSurgery] = useState('You are scheduled for an upcoming heart surgery at Penn State Health’s Congenital Heart Center. Enclosed, you will find instructions for this procedure:');
+  const [researchPreset, onChangeResearch] = useState(
+    "Your congenital heart team has identified you as someone potentially eligible for a current study being conducted on congenital heart disease. Would you like to be contacted about this study?"
+  );
+  const [cathPreset, onChangeCath] = useState(
+    "You are scheduled for an upcoming heart catheterization at Penn State Health's Congenital Heart Center. Enclosed, you will find instructions for this procedure:"
+  );
+  const [surgeryPreset, onChangeSurgery] = useState(
+    "You are scheduled for an upcoming heart surgery at Penn State Health's Congenital Heart Center. Enclosed, you will find instructions for this procedure:"
+  );
+  const [isResearch, setIsResearch] = useState(false);
+
+  const handlepushNotification = async () => {
+    try {
+      await pushNotification(diagnosisValue, ageGroupValue, {
+        title,
+        description,
+        isResearch,
+      });
+      console.log("successful");
+      Alert.alert("Response Recorded", "The notification has been sent");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Provider theme={theme}>
       <ScrollView>
         <View style={styles.container}>
-          <TextInput style={styles.input} placeholder="Title:" />
+          <TextInput
+            style={styles.input}
+            placeholder="Title:"
+            value={title}
+            onChangeText={setTitle}
+          />
           <Dropdown
             style={[styles.dropdown]}
             data={[
               { label: "Research", value: "1" },
               { label: "Catheterization", value: "2" },
               { label: "Surgery", value: "3" },
-              { label: "Other", value: "4" }
+              { label: "Other", value: "4" },
             ]}
             labelField="label"
             valueField="value"
@@ -49,46 +80,57 @@ const AdminNotification = ({ navigation }) => {
             value={notifTypeValue}
             onChange={(item) => {
               setNotifTypeValue(item.value);
+              if (item.value == "1") {
+                setIsResearch(true);
+                setDescription(researchPreset);
+              } else if (item.value == "2") {
+                setIsResearch(false);
+                setDescription(cathPreset);
+              } else if (item.value == "3") {
+                setIsResearch(false);
+                setDescription(surgeryPreset);
+              } else {
+                setIsResearch(false);
+                setDescription("");
+              }
             }}
           />
-          {notifTypeValue === "1" && (
-            <TextInput multiline style={styles.descInput} placeholder="Description:" value={researchPreset} onChangeText={onChangeResearch}/>
-          )}
-          {notifTypeValue === "2" && (
-            <TextInput multiline style={styles.descInput} placeholder="Description:" value={cathPreset} onChangeText={onChangeCath}/>
-          )}
-          {notifTypeValue === "3" && (
-            <TextInput multiline style={styles.descInput} placeholder="Description:" value={surgeryPreset} onChangeText={onChangeSurgery}/>
-          )}
-          {notifTypeValue === "4" && (
-            <TextInput multiline style={styles.descInput} placeholder="Description:"/>
-          )}
-          <TextInput style={styles.input} placeholder="Contact:" />
-          <Dropdown
-            style={[styles.dropdown]}
-            data={[
-              { label: "Pediatric", value: "1" },
-              { label: "Transition", value: "2" },
-              { label: "Adult", value: "3" },
+          <TextInput
+            multiline
+            style={styles.descInput}
+            placeholder="Description:"
+            value={description}
+            onChangeText={setDescription}
+          />
+
+          <SectionedMultiSelect
+            styles={{ selectToggle: styles.multiselect }}
+            items={[
+              { name: "Pediatric", id: "1" },
+              { name: "Transition", id: "2" },
+              { name: "Adult", id: "3" },
             ]}
-            labelField="label"
-            valueField="value"
-            placeholder={"Select the age group"}
-            value={ageGroupValue}
-            onChange={(item) => {
-              setDiagnosisValue(item.value);
-            }}
+            selectText="Age Group"
+            uniqueKey="name"
+            searchPlaceholderText={"Choose Age Group..."}
+            IconRenderer={MaterialIcons}
+            confirmText="Select"
+            selectedItems={ageGroupValue}
+            onSelectedItemsChange={setAgeGroupValue}
           />
-          <Dropdown
-            style={[styles.dropdown]}
-            data={diagnosis}
-            labelField="label"
-            valueField="value"
-            placeholder={"Select the diagnosis"}
-            value={diagnosisValue}
-            onChange={(item) => {
-              setDiagnosisValue(item.value);
-            }}
+          <SectionedMultiSelect
+            styles={{ selectToggle: styles.multiselect }}
+            items={diagnosis.map((item) => ({
+              name: item.label,
+              id: item.value,
+            }))}
+            selectText="Diagnosis"
+            uniqueKey="name"
+            searchPlaceholderText={"Choose diagnosis..."}
+            IconRenderer={MaterialIcons}
+            confirmText="Select"
+            selectedItems={diagnosisValue}
+            onSelectedItemsChange={setDiagnosisValue}
           />
 
           <TextInput
@@ -96,9 +138,9 @@ const AdminNotification = ({ navigation }) => {
             placeholder="Individual Patient Email (optional):"
           />
 
-          <TouchableOpacity style={styles.uploadButton}>
+          <Button style={styles.uploadButton} onPress={handlepushNotification}>
             <Text style={styles.uploadButtonText}>Upload</Text>
-          </TouchableOpacity>
+          </Button>
         </View>
       </ScrollView>
     </Provider>
@@ -127,6 +169,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
   },
+  multiselect: {
+    width: "100%",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    marginBottom: 10,
+  },
   uploadButton: {
     width: "100%",
     paddingVertical: 15,
@@ -136,9 +186,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   uploadButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   dropdown: {
     height: 40,

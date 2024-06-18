@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { signIn } from "../services/firebaseauth";
 import AuthContext from "../context/authContext";
+import { createNotification } from "../services/firebasefirestore";
 
 const logo = require("../images/logo.png");
 
@@ -66,6 +67,7 @@ function Login({ navigation }) {
           style={styles.button}
           onPress={async () => {
             const signInSuccess = await handleSignIn();
+
             if (signInSuccess) {
               navigation.navigate("Home");
             }
