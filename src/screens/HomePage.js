@@ -49,7 +49,7 @@ const HomePage = ({navigation}) => {
           />
         </View>
 
-        <Pressable onPress={() => { navigation.navigate("VideoGallery"); }}>
+        <Pressable onPress={() => { navigation.navigate("VideoHome"); }}>
           <Image
             source={require("../images/box2.png")}
             style={[styles.navigationImage, styles.roundedEdges]}

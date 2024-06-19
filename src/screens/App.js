@@ -17,6 +17,7 @@ import VideoPlayerScreen from "./VideoPlayer";
 
 import AdminHomeScreen from "./AdminHomeScreen";
 import AdminNotification from "./AdminNotification";
+import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import { AuthProvider } from "../context/authContext";
@@ -29,12 +30,19 @@ const App = () => {
     <UserDataProvider>
     <NavigationContainer>
       <Stack.Navigator>
-        
+      
+      
         <Stack.Screen
           name="Login"
           component={Login}
           options={{ title: "Login" }}
         />
+         <Stack.Screen
+              name="VideoHome"
+              component={VideoHome}
+              options={{ title: "Video Home" }}
+            />
+        
 
             <Stack.Screen
               name="AdminHome"
