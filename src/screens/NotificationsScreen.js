@@ -1,41 +1,84 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
+  ScrollView,
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  Dimensions,
   Image,
+  StyleSheet,
+  Dimensions,
+  Modal,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { getNotifications } from "../services/firebasefirestore";
+import NotificationPopup from "../components/notificationComponent";
+import UserDataContext from "../context/userContext";
 
 const { width } = Dimensions.get("window");
 
-const NotificationsScreen = ({navigation}) => {
+const NotificationsScreen = ({ navigation }) => {
+  const { userData, setUserData } = useContext(UserDataContext);
+  const [notifications, setNotifications] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedNotification, setSelectedNotification] = useState(null);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const notifs = await getNotifications(userData);
+        console.log("Fetched notifications:", notifs);
+        setNotifications(notifs);
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
+  const handleNotificationPress = (notif) => {
+    setSelectedNotification(notif);
+    setShowPopup(true);
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    setSelectedNotification(null);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-
-
         <Image source={require("../images/logo.png")} style={styles.logo} />
-
       </View>
       <View style={styles.notificationsContainer}>
         <Text style={styles.title}>Notifications</Text>
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.buttonText}>Research Study 1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.buttonText}>Post-Op Check-In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.buttonText}>Research Study 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.buttonText}>Welcome to the CHC App!</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.homeIcon} onPress={() => { navigation.navigate("Home"); }}>
+        {notifications.length === 0 ? (
+          <Text>No notifications available</Text>
+        ) : (
+          notifications.map((notif, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.notificationButton}
+              onPress={() => handleNotificationPress(notif)}
+            >
+              <Text style={styles.buttonText}>{notif.data().title}</Text>
+            </TouchableOpacity>
+          ))
+        )}
+        {showPopup && selectedNotification && (
+          <NotificationPopup
+            title={selectedNotification.data().title}
+            isResearch={selectedNotification.data().isResearch}
+            description={selectedNotification.data().description}
+            onClose={handlePopupClose}
+            notifId={selectedNotification.id}
+          />
+        )}
+        <TouchableOpacity
+          style={styles.homeIcon}
+          onPress={() => navigation.navigate("Home")}
+        >
           <MaterialIcons name="home" size={28} color="black" />
         </TouchableOpacity>
       </View>
