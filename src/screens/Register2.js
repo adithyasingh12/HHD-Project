@@ -16,7 +16,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { diagnosis, doctors, raceData } from "./allthedata";
-import { addUserData } from "../services/firebasefirestore";
+import { addUserData, addUserToFirestore } from "../services/firebasefirestore";
 import { signUp } from "../services/firebaseauth";
 
 function Register2({ route, navigation }) {
@@ -246,6 +246,7 @@ function Register2({ route, navigation }) {
             const user = await handleSignUp();
             if (user) {
               const userid = user.uid;
+              await addUserToFirestore(userid, email);
               await addUserData(userid, {
                 first_name: firstNameValue,
                 last_name: lastNameValue,

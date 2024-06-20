@@ -13,10 +13,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { getNotifications } from "../services/firebasefirestore";
 import NotificationPopup from "../components/notificationComponent";
 import UserDataContext from "../context/userContext";
+import AuthContext from "../context/authContext";
 
 const { width } = Dimensions.get("window");
 
 const NotificationsScreen = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
   const { userData, setUserData } = useContext(UserDataContext);
   const [notifications, setNotifications] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -25,7 +27,7 @@ const NotificationsScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const notifs = await getNotifications(userData);
+        const notifs = await getNotifications(userData, user.uid);
         console.log("Fetched notifications:", notifs);
         setNotifications(notifs);
       } catch (error) {
