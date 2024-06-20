@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Pressable } from "react-native";
 import { launchImageLibrary } from 'react-native-image-picker';
+import { Dropdown } from "react-native-element-dropdown";
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import firebase from "@react-native-firebase/app";
+import { uploadVideo } from "../services/firebasestorage";
 
 const AddVideo = ({ navigation }) => {
   const [videoUri, setVideoUri] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [ageGroup, setAgeGroup] = useState([]);
   const [category, setCategory] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
+  const [videoType, setVideoTypeValue] = useState(null);
 
   const handleChooseVideo = () => {
     const options = {
@@ -19,42 +22,69 @@ const AddVideo = ({ navigation }) => {
 
     launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-      console.log('User cancelled video picker');
+        console.log('User cancelled video picker');
       } else if (response.error) {
-      console.log('VideoPicker Error: ', response.error);
+        console.log('VideoPicker Error: ', response.error);
       } else {
-      setVideoUri(response.assets[0].uri);
-      setThumbnail(response.assets[0].uri);
+        setVideoUri(response.assets[0].uri);
+        setThumbnail(response.assets[0].uri);
       }
     });
   };
 
   const handleUploadVideo = async () => {
+    if (title && description && category.length > 0 && videoUri) {
+      try {
+        await uploadVideo(videoUri, title, description, category, thumbnail, videoType);
+        alert('Video uploaded successfully!');
+        navigation.goBack(); // Navigate back after successful upload
+      } catch (error) {
+        alert('Failed to upload video. Please try again.');
+        console.error("Error uploading video: ", error);
+      }
+    } else {
+      alert('Please fill in all fields.');
+    }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <TextInput
-        style={styles.input}
-        placeholder="Video Title:"
-        value={title}
-        onChangeText={setTitle}
+          style={styles.input}
+          placeholder="Video Title:"
+          value={title}
+          onChangeText={setTitle}
         />
         <TextInput
-        style={styles.input}
-        placeholder="Description:"
-        value={description}
-        onChangeText={setDescription}
-        multiline
+          style={styles.input}
+          placeholder="Description:"
+          value={description}
+          onChangeText={setDescription}
+          multiline
         />
+        <Dropdown
+            style={styles.dropdown}
+            data={[
+              { label: "Penn State", value: "Penn State" },
+              { label: "Global", value: "Global" },
+            ]}
+            labelField="label"
+            valueField="value"
+            placeholder="Global/PSU"
+            value={videoType}
+            onChange={(item) => {
+              setVideoTypeValue(item.value);
+            }}
+          />
         <SectionedMultiSelect
           items={[
-            {id:'1',name: 'General Topics - Child' },
-            {id:'2',name: 'General Topics - Adult' },
-            {id:'3',name: 'Transition Education' },
-            {id:'4',name: 'Lesion Specific Information - Adult' },
-            {id:'5',name: 'Special Topics - Child' },
-            {id:'6',name: 'Special Topics - Adult' },
+            { id: '1', name: 'General Topics - Child' },
+            { id: '2', name: 'General Topics - Adult' },
+            { id: '3', name: 'Transition Education' },
+            { id: '4', name: 'Lesion Specific Information - Adult' },
+            { id: '5', name: 'Special Topics - Child' },
+            { id: '6', name: 'Special Topics - Adult' },
           ]}
           uniqueKey="id"
           onSelectedItemsChange={setCategory}
@@ -74,16 +104,16 @@ const AddVideo = ({ navigation }) => {
             editable={false}
           />
           <TouchableOpacity style={styles.thumbnailButton} onPress={handleChooseVideo}>
-          <MaterialIcons name="photo-library" size={24} color="black" />
+            <MaterialIcons name="photo-library" size={24} color="black" />
           </TouchableOpacity>
         </View>
         {thumbnail && (
-        <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
+          <Image source={{ uri: thumbnail }} style={styles.thumbnailImage} />
         )}
         <Pressable onPress={handleUploadVideo} style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>Upload</Text>
+          <Text style={styles.submitButtonText}>Upload</Text>
         </Pressable>
-    </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -93,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    },
+  },
   content: {
     justifyContent: 'center',
     alignItems: 'center',
