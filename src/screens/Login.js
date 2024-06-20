@@ -33,10 +33,10 @@ function Login({ navigation }) {
       const user = await signIn(username, password);
       await setUser(user);
       Alert.alert("Sign In Successful", `Welcome back, ${user.email}`);
-      return true;
+      return user;
     } catch (error) {
       Alert.alert("Sign In Failed", error.message);
-      return false;
+      return null;
     }
   };
 
@@ -68,7 +68,12 @@ function Login({ navigation }) {
           onPress={async () => {
             const signInSuccess = await handleSignIn();
 
-            if (signInSuccess) {
+            if (
+              signInSuccess &&
+              signInSuccess.uid === "DMKClrz8iXb0WxVSV64x3J8vj6j1"
+            ) {
+              navigation.navigate("AdminHome");
+            } else {
               navigation.navigate("Home");
             }
           }}
@@ -118,19 +123,6 @@ function Login({ navigation }) {
         </Text>
         .
       </Text>
-      <View>
-        <Text>{"\n"}</Text>
-      </View>
-      <View style={styles.buttonView}>
-        <Pressable
-          style={styles.registerButton}
-          onPress={() => {
-            navigation.navigate("AdminHome");
-          }}
-        >
-          <Text style={styles.buttonText}>Admin Login</Text>
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }

@@ -12,7 +12,7 @@ import {
   onPressFunction,
 } from "react-native";
 
-const HomePage = ({navigation}) => {
+const HomePage = ({ navigation }) => {
   const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
@@ -49,7 +49,11 @@ const HomePage = ({navigation}) => {
           />
         </View>
 
-        <Pressable onPress={() => { navigation.navigate("VideoHome"); }}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("VideoHome");
+          }}
+        >
           <Image
             source={require("../images/box2.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
@@ -57,7 +61,11 @@ const HomePage = ({navigation}) => {
           <Text style={styles.centeredBoldText}>Video Gallery</Text>
         </Pressable>
 
-        <Pressable onPress={() => { navigation.navigate("EditDetails"); }}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("EditDetails");
+          }}
+        >
           <Image
             source={require("../images/box1.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
@@ -65,7 +73,11 @@ const HomePage = ({navigation}) => {
           <Text style={styles.centeredBoldText}>Edit Personal Info</Text>
         </Pressable>
 
-        <Pressable onPress={() => { navigation.navigate("Notifications"); }}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Notifications");
+          }}
+        >
           <Image
             source={require("../images/box3.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
@@ -73,7 +85,11 @@ const HomePage = ({navigation}) => {
           <Text style={styles.centeredBoldText}>Notifications</Text>
         </Pressable>
 
-        <Pressable onPress={() => { navigation.navigate("Contact"); }}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Contact");
+          }}
+        >
           <Image
             source={require("../images/box4.png")}
             style={[styles.navigationImage, styles.roundedEdges]}
