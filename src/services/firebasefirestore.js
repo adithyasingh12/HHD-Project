@@ -6,6 +6,7 @@ import { diagnosis } from "../screens/allthedata";
 
 import { parse } from "date-fns"; // Install date-fns if not already installed: npm install date-fns
 import { useState } from "react";
+import auth from "@react-native-firebase/auth";
 
 const calculateAge = (dob) => {
   const today = new Date();
@@ -29,7 +30,6 @@ const calculateAge = (dob) => {
   return age;
 };
 
-
 export const addUserData = async (uid, data) => {
   try {
     await firestore().collection("UserPost").doc(uid).set(data);
@@ -39,31 +39,44 @@ export const addUserData = async (uid, data) => {
   }
 };
 
-export const addCategoryData = async (categoryData, selectedItems, navigation) => {
+export const addCategoryData = async (
+  categoryData,
+  selectedItems,
+  navigation
+) => {
   try {
-  
     if (selectedItems.length === 0) {
-      alert('Please select at least one item.'); 
+      alert("Please select at least one item.");
       return false;
-    }
-     else {
-      if (selectedItems.includes('1')) {
-        await firestore().collection("Categories").doc("Child").collection(categoryData.title).add(categoryData);
+    } else {
+      if (selectedItems.includes("1")) {
+        await firestore()
+          .collection("Categories")
+          .doc("Child")
+          .collection(categoryData.title)
+          .add(categoryData);
       }
-      if (selectedItems.includes('2')) {
-        await firestore().collection("Categories").doc("Adult").collection(categoryData.title).add(categoryData);
+      if (selectedItems.includes("2")) {
+        await firestore()
+          .collection("Categories")
+          .doc("Adult")
+          .collection(categoryData.title)
+          .add(categoryData);
       }
-      if (selectedItems.includes('3')) {
-        await firestore().collection("Categories").doc("Transition").collection(categoryData.title).add(categoryData);
+      if (selectedItems.includes("3")) {
+        await firestore()
+          .collection("Categories")
+          .doc("Transition")
+          .collection(categoryData.title)
+          .add(categoryData);
       }
-      alert('Category created successfully!'); 
+      alert("Category created successfully!");
       return true;
     }
   } catch (error) {
     console.error("Error creating category, please try again ", error);
-    throw error; 
+    throw error;
   }
-  
 };
 
 export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
@@ -89,7 +102,7 @@ export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
   }
 };
 
-export const pushNotification = async (diagnoses, ages, data) => {
+export const pushNotificationtobulk = async (diagnoses, ages, data) => {
   try {
     // Handle single or multiple values for diagnoses and ages gracefully
     diagnoses = Array.isArray(diagnoses) ? diagnoses : [diagnoses];
@@ -115,8 +128,35 @@ export const pushNotification = async (diagnoses, ages, data) => {
     console.error("Error writing documents:", error);
   }
 };
+export const pushNotificationtoindividual = async (email, data) => {
+  try {
+    const userId = await (
+      await firestore().collection("users").doc(email).get()
+    ).data().uid;
 
-export const getNotifications = async (userData) => {
+    await firestore()
+      .collection("UserPost")
+      .doc(userId)
+      .collection("Notifications")
+      .add(data);
+
+    console.log("Documents successfully added!");
+  } catch (error) {
+    console.error("Error writing documents:", error);
+  }
+};
+export const addUserToFirestore = async (uid, email) => {
+  try {
+    await firestore().collection("users").doc(email).set({
+      uid: uid,
+    });
+    console.log("User added to Firestore");
+  } catch (error) {
+    console.error("Error adding user to Firestore: ", error);
+  }
+};
+
+export const getNotifications = async (userData, userID) => {
   try {
     let agegroup = "";
 
@@ -130,12 +170,23 @@ export const getNotifications = async (userData) => {
       agegroup = "Adult";
     }
     let notifs = [];
-    const querySnapshot = await firestore()
+    const querySnapshot_post = await firestore()
       .collection("NotificationPost")
       .doc(userData.diagnosis)
       .collection(agegroup)
       .get();
-    querySnapshot.forEach((documentSnapshot) => {
+    querySnapshot_post.forEach((documentSnapshot) => {
+      console.log("User ID: ", documentSnapshot.id, documentSnapshot.data());
+      notifs.push(documentSnapshot);
+    });
+
+    const querySnapshot_solo = await firestore()
+      .collection("UserPost")
+      .doc(userID)
+      .collection("Notifications")
+      .get();
+
+    querySnapshot_solo.forEach((documentSnapshot) => {
       console.log("User ID: ", documentSnapshot.id, documentSnapshot.data());
       notifs.push(documentSnapshot);
     });
