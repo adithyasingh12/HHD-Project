@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Dropdown } from "react-native-element-dropdown";
 import { View, Text, navigation, StyleSheet, Pressable,  TextInput, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -10,25 +11,35 @@ import firestore from '@react-native-firebase/firestore';
 const { width } = Dimensions.get('window');
 
 
-const NewCategoryScreen = ({navigation}) => {
+const NewCategoryScreen = ({navigation}) => 
+  {
   const [thumbnail, setThumbnail] = useState(null);
   const [title, setTitle] = useState('');
-  const [ageGroup, setAgeGroup] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedPublicity, setSelectedPublicity] = useState("");
+  const [isFocus, setIsFocus] = useState(false);
 
 
-  const handleSelectThumbnail = () => {
-    const options = {
+
+  const handleSelectThumbnail = () => 
+  {
+    const options = 
+    {
       mediaType: 'photo',
     };
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
+    launchImageLibrary(options, (response) => 
+      {
+      if (response.didCancel) 
+      {
         console.log('User cancelled image picker');
-      } else if (response.error) {
+      } else if (response.error) 
+        {
         console.log('ImagePicker Error: ', response.error);
-      } else if (response.assets && response.assets.length > 0) {
+        } 
+        else if (response.assets && response.assets.length > 0) 
+        {
         setThumbnail(response.assets[0].uri);
-      }
+        }
     });
   };
 
@@ -42,9 +53,14 @@ const NewCategoryScreen = ({navigation}) => {
         title: title,
         thumbnail: thumbnail, 
       };
-      const categoryId = await addCategoryData(categoryData, selectedItems);
-      if (categoryId) {
-        navigation.navigate("Home");
+
+    
+      
+
+      const categoryId = await addCategoryData(categoryData, selectedItems, selectedPublicity);
+      if (categoryId) 
+      {
+        navigation.navigate("AdminHome");
       }
       
   
@@ -66,7 +82,27 @@ const NewCategoryScreen = ({navigation}) => {
         />
         
 
-          <SectionedMultiSelect
+        <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            data={[
+              { label: "CHD Educational Videos", value: "1" },
+              { label: "Penn State Congenital Heart Center Information", value: "2" },
+            ]}
+            labelField="label"
+            valueField="value"
+            placeholder={"Select an option"}
+            value={selectedPublicity}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setSelectedPublicity(item.value);
+              setIsFocus(false);
+            }}
+          />
+
+
+
+<SectionedMultiSelect
           items={[
             {id:'1',name:'Child' },
             {id:'2',name:'Adult' },
@@ -88,6 +124,9 @@ const NewCategoryScreen = ({navigation}) => {
             selectedItemText: styles.selectedItemText,
           }}
         />
+
+
+
 
 
         <View style={styles.thumbnailContainer}>
