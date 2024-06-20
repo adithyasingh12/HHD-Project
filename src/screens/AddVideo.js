@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Pressable } from "react-native";
 import { launchImageLibrary } from 'react-native-image-picker';
+import { Dropdown } from "react-native-element-dropdown";
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { addVideoData } from '../services/firebasefirestore'; // Import the new function
 import firebase from "@react-native-firebase/app";
+import { uploadVideo } from "../services/firebasestorage";
 
 const AddVideo = ({ navigation }) => {
   const [videoUri, setVideoUri] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [ageGroup, setAgeGroup] = useState([]);
   const [category, setCategory] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
+  const [videoType, setVideoTypeValue] = useState(null);
 
   const handleChooseVideo = () => {
     const options = {
@@ -33,17 +34,8 @@ const AddVideo = ({ navigation }) => {
 
   const handleUploadVideo = async () => {
     if (title && description && category.length > 0 && videoUri) {
-      const videoData = {
-        title,
-        description,
-        category,
-        videoUri,
-        thumbnail,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      };
-
       try {
-        await addVideoData(videoData);
+        await uploadVideo(videoUri, title, description, category, thumbnail, videoType);
         alert('Video uploaded successfully!');
         navigation.goBack(); // Navigate back after successful upload
       } catch (error) {
@@ -71,6 +63,20 @@ const AddVideo = ({ navigation }) => {
           onChangeText={setDescription}
           multiline
         />
+        <Dropdown
+            style={styles.dropdown}
+            data={[
+              { label: "Penn State", value: "Penn State" },
+              { label: "Global", value: "Global" },
+            ]}
+            labelField="label"
+            valueField="value"
+            placeholder="Global/PSU"
+            value={videoType}
+            onChange={(item) => {
+              setVideoTypeValue(item.value);
+            }}
+          />
         <SectionedMultiSelect
           items={[
             { id: '1', name: 'General Topics - Child' },
