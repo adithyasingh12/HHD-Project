@@ -1,5 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Alert, Button, Image, ScrollView, Pressable, SafeAreaView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import {
+  Alert,
+  Button,
+  Image,
+  ScrollView,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import CategoryContext from "../context/categoryContext";
 
 const logo = require("../images/play_button.jpg");
@@ -30,7 +42,13 @@ const SubCategories = ({ route, navigation }) => {
           <View key={index} style={styles.itemContainer}>
             <Pressable
               style={[styles.item, styles.roundedEdges]}
-              onPress={() => { navigation.navigate("VideoPlayer") }}
+              onPress={() => {
+                navigation.navigate("VideoGallery", {
+                  type,
+                  age,
+                  subCategory,
+                });
+              }}
             >
               <Image source={logo} style={styles.image} />
             </Pressable>
@@ -45,28 +63,28 @@ const SubCategories = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   image: {
     height: 150,
-    width: '100%',
+    width: "100%",
   },
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignContent: 'flex-start',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignContent: "flex-start",
   },
   itemContainer: {
-    width: '50%', // Adjust the width as needed
+    width: "50%", // Adjust the width as needed
     padding: 10,
   },
   item: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: "#EEEEEE",
     height: 150,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
   },
   name: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
     fontSize: 14,
     marginTop: 10,
   },
