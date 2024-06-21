@@ -7,6 +7,7 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
@@ -45,10 +46,7 @@ const VideoGallery = ({ route, navigation }) => {
           ...doc.data(),
         }));
 
-        console.log(videos);
-
         setVideoPosts(videos);
-        console.log(videoPosts);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching video posts: ", error);
@@ -72,58 +70,62 @@ const VideoGallery = ({ route, navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {videoPosts.map((video, index) => (
-        <View key={index} style={styles.itemContainer}>
-          <Pressable
-            style={[styles.item, styles.roundedEdges]}
-            onPress={() => {
-              navigation.navigate("VideoPlayer", {
-                url: video.url, // Assuming you have a 'url' field in your video post
-                title: video.name, // Changed to video.title
-                description: video.desc, // Changed to video.description
-              });
-            }}
-          >
+        <Pressable
+          key={index}
+          style={styles.itemContainer}
+          onPress={() => {
+            navigation.navigate("VideoPlayer", {
+              url: video.url,
+              title: video.name,
+              description: video.desc,
+            });
+          }}
+        >
+          <View style={styles.imageContainer}>
             <Image
               source={{ uri: video.thumbnail || logo }}
               style={styles.image}
             />
-          </Pressable>
-          <Text style={styles.name}>{video.title}</Text>
-        </View>
+          </View>
+          <Text style={styles.title}>{video.name}</Text>
+        </Pressable>
       ))}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 10,
+    justifyContent: "space-between",
+  },
+  itemContainer: {
+    width: Dimensions.get("window").width / 2 - 15,
+    marginBottom: 20,
+    borderRadius: 10,
+    backgroundColor: "#f0f0f0",
+    overflow: "hidden",
+  },
+  imageContainer: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    overflow: "hidden",
+  },
   image: {
     height: 150,
     width: "100%",
+    resizeMode: "cover",
+    borderBottomLeftRadius: 10, // Rounded bottom corners for the image
+    borderBottomRightRadius: 10, // Rounded bottom corners for the image
   },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignContent: "flex-start",
-  },
-  itemContainer: {
-    width: "100%",
-    height: 150,
-    marginVertical: 10,
-  },
-  item: {
-    backgroundColor: "#000",
-    height: 150,
-    overflow: "hidden",
-  },
-  name: {
+  title: {
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 14,
     marginTop: 5,
-  },
-  roundedEdges: {
-    borderRadius: 30,
+    paddingHorizontal: 10,
   },
 });
 

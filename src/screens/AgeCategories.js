@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
-import { View, Text, navigation, StyleSheet, Pressable,  TextInput, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 
-const AgeCategories = ({route, navigation}) => {
-
+const AgeCategories = ({ route, navigation }) => {
   const { choice } = route.params;
-
 
   return (
     <View style={styles.container}>
+      <Text style={styles.Text}>Select an Age Group:</Text>
 
-        <Text style={styles.Text}>Select an Age Group:</Text>
-            
-        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'child and peds'});}}
-            style={styles.submitButton}>
-            <Text style={styles.submitButtonText}>Child/Pediatric</Text>
-        </Pressable>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("SubCategories", { type: choice, age: 'child and peds' });
+        }}
+        style={styles.submitButton}
+      >
+        <Text style={styles.submitButtonText}>Child/Pediatric</Text>
+      </Pressable>
 
-        <Text style={styles.Text}></Text>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("SubCategories", { type: choice, age: 'transitional' });
+        }}
+        style={styles.submitButton}
+      >
+        <Text style={styles.submitButtonText}>Transition</Text>
+      </Pressable>
 
-        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'transitional'});}}
-            style={styles.submitButton}>
-            <Text style={styles.submitButtonText}>Transition</Text>
-        </Pressable>
-
-        <Text style={styles.Text}></Text>
-
-        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'adult'});}}
-            style={styles.submitButton}>
-            <Text style={styles.submitButtonText}>Adult</Text>
-        </Pressable>
-        <Text></Text>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("SubCategories", { type: choice, age: 'adult' });
+        }}
+        style={styles.submitButton}
+      >
+        <Text style={styles.submitButtonText}>Adult</Text>
+      </Pressable>
     </View>
   );
 };
-    
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,28 +52,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 23,
     width: 300,
-    marginBottom: 80,
-
-  },
-  psuImage: {
-    width: 175,
-    height: 175,
-    alignSelf: "center",
-    marginBottom: 0,
-    marginTop: 10,
-    
-  },
-  GlobeImage: {
-    width: 260,
-    height: 180,
-    alignSelf: "center",
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: 40,
   },
   submitButtonText: {
     color: 'white',
     fontSize: 18,
-    fontWeight: 'bold',  
+    fontWeight: 'bold',
   },
   submitButton: {
     width: "90%",
@@ -78,10 +66,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#001f54",
     borderRadius: 8,
     alignItems: "center",
-
-
-}
-    
+    marginBottom: 15, // Added margin bottom to create space between buttons
+  },
 });
 
 export default AgeCategories;
