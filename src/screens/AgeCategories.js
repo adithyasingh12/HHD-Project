@@ -1,42 +1,35 @@
 import React, { useState } from 'react';
 import { View, Text, navigation, StyleSheet, Pressable,  TextInput, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
 
+const AgeCategories = ({route, navigation}) => {
+
+  const { choice } = route.params;
 
 
-const PennAgeCategories = ({navigation}) => {
-
-    
-    
   return (
     <View style={styles.container}>
-      
+
         <Text style={styles.Text}>Select an Age Group:</Text>
-    
             
-        <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'child and peds'});}}
             style={styles.submitButton}>
             <Text style={styles.submitButtonText}>Child/Pediatric</Text>
         </Pressable>
 
         <Text style={styles.Text}></Text>
 
-
-        <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'transitional'});}}
             style={styles.submitButton}>
             <Text style={styles.submitButtonText}>Transition</Text>
         </Pressable>
 
         <Text style={styles.Text}></Text>
 
-
-        <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+        <Pressable onPress={() => {navigation.navigate("SubCategories", { type: choice, age: 'adult'});}}
             style={styles.submitButton}>
             <Text style={styles.submitButtonText}>Adult</Text>
         </Pressable>
         <Text></Text>
-    
-      
-
     </View>
   );
 };
@@ -91,4 +84,4 @@ const styles = StyleSheet.create({
     
 });
 
-    export default PennAgeCategories;
+export default AgeCategories;

@@ -20,8 +20,7 @@ import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
 
-import GlobalAgeCategories from "./GlobalAgeCategories";
-import PennAgeCategories from "./PennAgeCategories";
+import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
 
 
@@ -122,14 +121,14 @@ const App = () => {
                           options={{ title: "Video Home" }}
                         />
                         <Stack.Screen
-                          name="GlobalAgeCategories"
-                          component={GlobalAgeCategories}
-                          options={{ title: "Global Age Catergories" }}
+                          name="AgeCategories"
+                          component={AgeCategories}
+                          options={{ title: "Age Categories" }}
                         />
                         <Stack.Screen
-                          name="PennAgeCategories"
-                          component={PennAgeCategories}
-                          options={{ title: "Penn State Age Catergories" }}
+                          name="SubCategories"
+                          component={SubCategories}
+                          options={{ title: "SubCategories" }}
                         />
                         <Stack.Screen
                           name="Notifications"
