@@ -1,8 +1,8 @@
-
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import CategoryContext from "../context/categoryContext";
 
-export const uploadVideo = async (localUri, fileName, description, category, thumbnail, videoType) => {
+export const uploadVideo = async (localUri, fileName, description, category, thumbnail, videoType, ageGroup) => {
   try {
     const response = await fetch(localUri);
     const blob = await response.blob();
@@ -20,11 +20,19 @@ export const uploadVideo = async (localUri, fileName, description, category, thu
           desc: description,
           category: category,
           thumbnail: thumbnail,
-          videoType: videoType
+          videoType: videoType,
+          ageGroup: ageGroup
         };
 
-        const docRef = await firestore().collection('VideoPost').add(videoData);
-        console.log('Document written with ID: ', docRef.id);
+        for(let i = 0; i < category.length; i++){
+          const docRef = await firestore()
+          .collection('Categories')
+          .doc(videoType)
+          .collection(ageGroup)
+          .doc(category[i])
+          .collection("VideoPost")
+          .add(videoData);
+        }
       } catch (error) {
         console.error('Error saving to Firestore:', error);
       }

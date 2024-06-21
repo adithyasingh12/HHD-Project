@@ -26,6 +26,7 @@ const AddVideo = ({ navigation }) => {
   const [videoType, setVideoTypeValue] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
   const { categories } = useContext(CategoryContext);
+  const [ageGroup, setAgeGroup] = useState(null);
 
   const handleChooseVideo = () => {
     const options = {
@@ -45,18 +46,33 @@ const AddVideo = ({ navigation }) => {
   };
 
   const handleUploadVideo = async () => {
-    if (title && description && category.length > 0 && videoUri) {
+    if (title && description && category.length > 0 && videoUri && ageGroup && videoType) {
       try {
-        await uploadVideo(
-          videoUri,
-          title,
-          description,
-          category,
-          thumbnail,
-          videoType
-        );
-        alert("Video uploaded successfully!");
-        navigation.goBack(); // Navigate back after successful upload
+        if (videoType == "psu") {
+          await uploadVideo(
+            videoUri,
+            title,
+            description,
+            category,
+            thumbnail,
+            "PSU Heart Information",
+            ageGroup
+          );
+          alert("Video uploaded successfully!");
+          navigation.goBack(); // Navigate back after successful upload
+        } else if (videoType == "chd"){
+          await uploadVideo(
+            videoUri,
+            title,
+            description,
+            category,
+            thumbnail,
+            "CHD Educational Videos",
+            ageGroup
+          );
+          alert("Video uploaded successfully!");
+          navigation.goBack(); // Navigate back after successful upload
+        }
       } catch (error) {
         alert("Failed to upload video. Please try again.");
         console.error("Error uploading video: ", error);
@@ -67,19 +83,19 @@ const AddVideo = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (videoType) {
+    if (videoType && ageGroup) {
       const type = videoType.toLowerCase();
-      const subCategories = categories[type];
-      const formattedSubCategories = Object.entries(subCategories).flatMap(
-        ([key, values]) =>
-          values.map((value) => ({
-            id: `${key}-${value}`,
-            name: `${key} - ${value}`,
-          }))
-      );
-      setSubCategories(formattedSubCategories);
+      const age = ageGroup.toLowerCase();
+      const subCategories = categories[type][age];
+
+      if (subCategories && Array.isArray(subCategories)) {
+        const formattedSubCategories = subCategories.map((item) => ({ name: item, id: item }));
+        setSubCategories(formattedSubCategories);
+      } else {
+        console.log("subCategories is not an array or is undefined");
+      }
     }
-  }, [videoType, categories]);
+  }, [videoType, ageGroup, categories]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -100,15 +116,30 @@ const AddVideo = ({ navigation }) => {
         <Dropdown
           style={styles.dropdown}
           data={[
-            { label: "Penn State", value: "PSU" },
-            { label: "Global", value: "chd" },
+            { label: "Penn State", value: "psu" },
+            { label: "CHD Education", value: "chd" },
           ]}
           labelField="label"
           valueField="value"
-          placeholder="Global/PSU"
+          placeholder="PSU/CHD Info"
           value={videoType}
           onChange={(item) => {
             setVideoTypeValue(item.value);
+          }}
+        />
+        <Dropdown
+          style={styles.dropdown}
+          data={[
+            { label: "Child/Pediatric", value: "Child and Peds" },
+            { label: "Transitional", value: "Transitional" },
+            { label: "Adult", value: "Adult" },
+          ]}
+          labelField="label"
+          valueField="value"
+          placeholder="Age Group"
+          value={ageGroup}
+          onChange={(item) => {
+            setAgeGroup(item.value);
           }}
         />
         <SectionedMultiSelect
