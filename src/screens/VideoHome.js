@@ -24,7 +24,7 @@ const VideoHome = ({navigation}) => {
             <Text style={styles.Text}>Penn State Congenital Heart Center Information</Text>
         
 
-            <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+            <Pressable onPress={() => {navigation.navigate("AgeCategories", { choice: 'psu'});}}
                 style={styles.submitButton}>
                 <Text style={styles.submitButtonText}>Go</Text>
             </Pressable>
@@ -33,9 +33,9 @@ const VideoHome = ({navigation}) => {
             source={require("../images/GlobeIcon.png")}
             style={[styles.GlobeImage]}
           />
-          <Text style={styles.Text}>CHD Educational Videos</Text>
+          <Text style={styles.Text}>Congenital Heart Disease Educational Videos</Text>
 
-          <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+          <Pressable onPress={() => {navigation.navigate("AgeCategories", { choice: 'chd'});}}
                 style={styles.submitButton}>
                 <Text style={styles.submitButtonText}>Go</Text>
             </Pressable>

@@ -20,6 +20,11 @@ import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
 
+import AgeCategories from "./AgeCategories";
+import SubCategories from "./SubCategories";
+
+
+
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
@@ -114,6 +119,16 @@ const App = () => {
                           name="VideoHome"
                           component={VideoHome}
                           options={{ title: "Video Home" }}
+                        />
+                        <Stack.Screen
+                          name="AgeCategories"
+                          component={AgeCategories}
+                          options={{ title: "Age Categories" }}
+                        />
+                        <Stack.Screen
+                          name="SubCategories"
+                          component={SubCategories}
+                          options={{ title: "SubCategories" }}
                         />
                         <Stack.Screen
                           name="Notifications"
