@@ -19,6 +19,11 @@ import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
+import GlobalAgeCategories from "./GlobalAgeCategories";
+import PennAgeCategories from "./PennAgeCategories";
+import SubCategories from "./SubCategories";
+
+
 
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
@@ -47,6 +52,12 @@ const App = () => {
                 <Stack.Navigator>
                   {!user ? (
                     <>
+                    {/* <Stack.Screen
+                        name="SubCategories"
+                        component={SubCategories}
+                        options={{ title: "Subcategories" }}
+                      /> */}
+
                       <Stack.Screen
                         name="Login"
                         component={Login}
@@ -112,6 +123,17 @@ const App = () => {
                         name="VideoHome"
                         component={VideoHome}
                         options={{ title: "Video Home" }}
+                      />
+                      <Stack.Screen
+                        name="GlobalAgeCategories"
+                        component={GlobalAgeCategories}
+                        options={{ title: "Global Age Catergories" }}
+                      />
+
+                      <Stack.Screen
+                        name="PennAgeCategories"
+                        component={PennAgeCategories}
+                        options={{ title: "Penn State Age Catergories" }}
                       />
                       <Stack.Screen
                         name="Notifications"

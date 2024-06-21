@@ -24,7 +24,7 @@ const VideoHome = ({navigation}) => {
             <Text style={styles.Text}>Penn State Congenital Heart Center Information</Text>
         
 
-            <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+            <Pressable onPress={() => {navigation.navigate("PennAgeCategories");}} 
                 style={styles.submitButton}>
                 <Text style={styles.submitButtonText}>Go</Text>
             </Pressable>
@@ -35,7 +35,7 @@ const VideoHome = ({navigation}) => {
           />
           <Text style={styles.Text}>CHD Educational Videos</Text>
 
-          <Pressable onPress={() => {navigation.navigate("VideoGallery");}} 
+          <Pressable onPress={() => {navigation.navigate("GlobalAgeCategories");}} 
                 style={styles.submitButton}>
                 <Text style={styles.submitButtonText}>Go</Text>
             </Pressable>
