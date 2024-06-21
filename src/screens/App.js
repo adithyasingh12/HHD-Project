@@ -19,6 +19,11 @@ import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
+import GlobalAgeCategories from "./GlobalAgeCategories";
+import PennAgeCategories from "./PennAgeCategories";
+import SubCategories from "./SubCategories";
+
+
 
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
