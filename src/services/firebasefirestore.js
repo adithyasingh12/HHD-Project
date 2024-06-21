@@ -39,6 +39,14 @@ export const addUserData = async (uid, data) => {
   }
 };
 
+export const updateUserData = async (uid, data) => {
+  try {
+    await firestore().collection("UserPost").doc(uid).update(data);
+    console.log("Document successfully written!");
+  } catch (error) {
+    console.error("Error writing document: ", error);
+  }
+};
 
 
 

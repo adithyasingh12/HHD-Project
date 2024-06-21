@@ -30,7 +30,7 @@ function EditDetails({ navigation }) {
     userData.additional_diagnosis
   );
   const [raceValue, setRaceValue] = useState(userData.race);
-  const [birthValue, setbirthValue] = useState(userData.sex);
+  const [birthValue, setBirthValue] = useState(userData.sex);
   const [iscardiologistValue, setIsCardiologistValue] = useState(
     userData.isCardiologist
   );
