@@ -19,10 +19,6 @@ import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
-import GlobalAgeCategories from "./GlobalAgeCategories";
-import PennAgeCategories from "./PennAgeCategories";
-import SubCategories from "./SubCategories";
-
 
 import GlobalAgeCategories from "./GlobalAgeCategories";
 import PennAgeCategories from "./PennAgeCategories";
@@ -124,6 +120,16 @@ const App = () => {
                           name="VideoHome"
                           component={VideoHome}
                           options={{ title: "Video Home" }}
+                        />
+                        <Stack.Screen
+                          name="GlobalAgeCategories"
+                          component={GlobalAgeCategories}
+                          options={{ title: "Global Age Catergories" }}
+                        />
+                        <Stack.Screen
+                          name="PennAgeCategories"
+                          component={PennAgeCategories}
+                          options={{ title: "Penn State Age Catergories" }}
                         />
                         <Stack.Screen
                           name="Notifications"
