@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   Modal,
   TouchableOpacity,
-  TextInput,
   FlatList,
   StyleSheet,
   Dimensions,
+  Alert,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as FileSystem from "expo-file-system";
+import { deleteNotification } from "../services/firebasefirestore";
 
 const { width, height } = Dimensions.get("window");
 
@@ -18,18 +20,35 @@ const AdminNotificationPopup = ({
   title,
   description,
   onClose,
-
   users = [],
-
   notifId,
+  diagnosis,
+  ageGroup,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-  const [newDescription, setNewDescription] = useState(description);
-
   useEffect(() => {
     console.log("Users:", users);
   }, [users]);
+
+  const handleDelete = async () => {
+    console.log(notifId, ageGroup, diagnosis);
+    await deleteNotification(notifId, ageGroup, diagnosis);
+    onClose();
+  };
+
+  const handleDownload = async () => {
+    const content = users.join("\n");
+    const fileName = `Users_${notifId}.txt`;
+    const fileUri = FileSystem.documentDirectory + fileName;
+
+    await FileSystem.writeAsStringAsync(fileUri, content, {
+      encoding: FileSystem.EncodingType.UTF8,
+    });
+
+    Alert.alert(
+      "File Downloaded",
+      `The file has been downloaded to: ${fileUri}`
+    );
+  };
 
   return (
     <Modal
@@ -62,6 +81,22 @@ const AdminNotificationPopup = ({
               />
             </View>
           )}
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={handleDelete}
+            >
+              <Text style={styles.buttonText}>Delete</Text>
+            </TouchableOpacity>
+            {isResearch && users.length > 0 && (
+              <TouchableOpacity
+                style={styles.downloadButton}
+                onPress={handleDownload}
+              >
+                <Text style={styles.buttonText}>Download</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     </Modal>
@@ -94,30 +129,10 @@ const styles = StyleSheet.create({
     color: "#001f54",
     marginBottom: 10,
   },
-  description: {
-    fontSize: 18,
-    textAlign: "center",
-    marginBottom: 30,
-    color: "#001f54",
-  },
-  input: {
-    width: "100%",
-    borderBottomWidth: 1,
-    borderBottomColor: "#001f54",
-    marginBottom: 20,
-    fontSize: 18,
-    color: "#001f54",
-  },
   actionsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "80%",
-  },
-  editButton: {
-    backgroundColor: "#FFA500",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
   },
   deleteButton: {
     backgroundColor: "#FF0000",
@@ -125,12 +140,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
   },
-  saveButton: {
+  downloadButton: {
     backgroundColor: "#4CAF50",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
-    marginBottom: 20,
   },
   userListContainer: {
     width: "100%",
@@ -156,6 +170,10 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     padding: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
