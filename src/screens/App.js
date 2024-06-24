@@ -28,6 +28,7 @@ import SubCategories from "./SubCategories";
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
+import ManageVideos from "./ManageVideos";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,21 @@ const App = () => {
                   <Stack.Navigator>
                     {!user ? (
                       <>
+                        <Stack.Screen
+                          name="AdminHome"
+                          component={AdminHomeScreen}
+                          options={{
+                            title: "Admin Home",
+                            headerRight: () => (
+                              <Button onPress={handleLogout} title="Logout" />
+                            ),
+                          }}
+                        />
+                        <Stack.Screen
+                          name="ManageVideos"
+                          component={ManageVideos}
+                          options={{ title: "Manage Videos" }}
+                        />
                         <Stack.Screen
                           name="Login"
                           component={Login}

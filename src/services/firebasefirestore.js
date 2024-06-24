@@ -297,3 +297,49 @@ export const addVideoData = async (videoData) => {
 
 };
 
+
+
+export const getVideosByCategory = async (videoType, ageGroup, category) => {
+  try {
+    console.log(`Fetching videos for videoType: ${videoType}, ageGroup: ${ageGroup}, category: ${category}`);
+    const videos = [];
+    const querySnapshot = await firestore()
+      .collection("Categories")
+      .doc(videoType)
+      .collection(ageGroup)
+      .doc(category)
+      .collection("VideoPost")
+      .get();
+
+    if (querySnapshot.empty) {
+      console.log("No matching documents.");
+      return [];
+    }
+
+    querySnapshot.forEach((doc) => {
+      videos.push({ id: doc.id, ...doc.data() });
+    });
+
+    console.log("Fetched videos:", videos);
+    return videos;
+  } catch (error) {
+    console.error("Error fetching videos: ", error);
+    return [];
+  }
+};
+
+export const deleteVideoById = async (videoType, ageGroup, category, videoId) => {
+  try {
+    await firestore()
+      .collection("Categories")
+      .doc(videoType)
+      .collection(ageGroup)
+      .doc(category)
+      .collection("VideoPost")
+      .doc(videoId)
+      .delete();
+    console.log(`Video with ID ${videoId} deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting video:", error);
+  }
+};
