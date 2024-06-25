@@ -19,9 +19,11 @@ import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
-
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
+
+import DeleteCategory  from "./DeleteCategory";
+
 
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
@@ -104,10 +106,17 @@ const App = () => {
                           component={AdminManageNotifications}
                           options={{ title: "Manage Notifications" }}
                         />
+    
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
                           options={{ title: "New Video Category" }}
+                        />
+                    
+                        <Stack.Screen
+                          name="DeleteCategory"
+                          component={DeleteCategory}
+                          options={{ title: "Delete Category" }}
                         />
                         <Stack.Screen
                           name="AddVideo"
