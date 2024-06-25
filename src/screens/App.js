@@ -22,13 +22,11 @@ import AdminManageNotifications from "./AdminManageNotifications";
 
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
-
-
-
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
 import ManageVideos from "./ManageVideos";
+import AgeClassification from "./AgeClassification";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +62,11 @@ const App = () => {
                               <Button onPress={handleLogout} title="Logout" />
                             ),
                           }}
+                        />
+                        <Stack.Screen
+                          name="AgeClassification"
+                          component={AgeClassification}
+                          options={{ title: "Age Classification" }}
                         />
                         <Stack.Screen
                           name="ManageVideos"
