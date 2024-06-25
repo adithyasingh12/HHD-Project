@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const saveVideoMetadata = async (videoId, filePath) => {
   if (!videoId || !filePath) {
-    console.error('Invalid videoId or filePath', { videoId, filePath });
+    // console.error('Invalid videoId or filePath', { videoId, filePath });
     return;
   }
   
@@ -17,7 +17,7 @@ export const saveVideoMetadata = async (videoId, filePath) => {
 
 export const getVideoMetadata = async (videoId) => {
   if (!videoId) {
-    console.error('Invalid videoId', { videoId });
+    // console.error('Invalid videoId', { videoId });
     return null;
   }
   

@@ -128,7 +128,7 @@ const App = () => {
                         <Stack.Screen
                           name="SubCategories"
                           component={SubCategories}
-                          options={{ title: "SubCategories" }}
+                          options={{ title: "Subcategories" }}
                         />
                         <Stack.Screen
                           name="Notifications"
