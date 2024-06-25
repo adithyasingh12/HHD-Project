@@ -345,3 +345,35 @@ export const deleteVideoById = async (
     console.error("Error deleting video:", error);
   }
 };
+
+
+// Function to fetch user data from Firestore
+export const fetchUserData = async () => {
+  console.log("fetchUserData: Function start");
+  try {
+    const userPosts = [];
+    console.log("fetchUserData: Fetching documents from UserPost collection");
+
+    const querySnapshot = await firestore().collection("UserPost").get();
+
+    console.log("fetchUserData: Documents fetched, processing each document");
+    querySnapshot.forEach((documentSnapshot) => {
+      console.log(`fetchUserData: Processing document with ID ${documentSnapshot.id}`);
+      userPosts.push({
+        id: documentSnapshot.id,
+        ...documentSnapshot.data(),
+      });
+    });
+
+    console.log("fetchUserData: User data fetched successfully", userPosts);
+    return userPosts;
+  } catch (error) {
+    console.error("fetchUserData: Error fetching user data", error);
+    return [];
+  }
+};
+
+// Usage example
+fetchUserData().then((userData) => {
+  console.log("fetchUserData: Fetched user data", userData);
+});

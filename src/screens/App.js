@@ -27,6 +27,7 @@ import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
 import ManageVideos from "./ManageVideos";
+import AgeClassification from "./AgeClassification";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,28 @@ const App = () => {
                     {!user ? (
                       <>
                         <Stack.Screen
+
+                          name="AdminHome"
+                          component={AdminHomeScreen}
+                          options={{
+                            title: "Admin Home",
+                            headerRight: () => (
+                              <Button onPress={handleLogout} title="Logout" />
+                            ),
+                          }}
+                        />
+                        <Stack.Screen
+                          name="AgeClassification"
+                          component={AgeClassification}
+                          options={{ title: "Age Classification" }}
+                        />
+                        <Stack.Screen
+                          name="ManageVideos"
+                          component={ManageVideos}
+                          options={{ title: "Manage Videos" }}
+                        />
+                        <Stack.Screen
+
                           name="Login"
                           component={Login}
                           options={{ title: "Login" }}
