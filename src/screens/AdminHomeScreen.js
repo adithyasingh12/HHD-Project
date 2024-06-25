@@ -50,7 +50,7 @@ const AdminHomeScreen = ({ navigation }) => {
         >
           <MaterialIcons name="add-circle-outline" size={60} color="white" />
         </TouchableOpacity>
-        <Text style={styles.optionText}>Create New Category</Text>
+        <Text style={styles.optionText}>Create New Video Category</Text>
       </Pressable>
       <Pressable style={styles.optionContainer}>
         <TouchableOpacity

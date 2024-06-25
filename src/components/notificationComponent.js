@@ -36,7 +36,7 @@ const NotificationPopup = ({
         );
         Alert.alert(
           "Response Recorded",
-          "You have chosen to participate in the study."
+          "You will be contacted about further about this study."
         );
       } catch (error) {
         console.log(error);

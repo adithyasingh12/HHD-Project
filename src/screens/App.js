@@ -100,7 +100,7 @@ const App = () => {
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
-                          options={{ title: "New Category" }}
+                          options={{ title: "New Video Category" }}
                         />
                         <Stack.Screen
                           name="AddVideo"
