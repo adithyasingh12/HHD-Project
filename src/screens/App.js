@@ -21,12 +21,15 @@ import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
+
 import DeleteCategory  from "./DeleteCategory";
 
 
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
+import ManageVideos from "./ManageVideos";
+import AgeClassification from "./AgeClassification";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +84,18 @@ const App = () => {
                             ),
                           }}
                         />
+
+                        <Stack.Screen
+                          name="AgeClassification"
+                          component={AgeClassification}
+                          options={{ title: "Age Classification" }}
+                        />
+
+                        <Stack.Screen
+                          name="ManageVideos"
+                          component={ManageVideos}
+                          options={{ title: "Manage Videos" }}
+                        />
                         <Stack.Screen
                           name="AdminNotifications"
                           component={AdminNotification}
@@ -95,7 +110,7 @@ const App = () => {
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
-                          options={{ title: "New Category" }}
+                          options={{ title: "New Video Category" }}
                         />
                     
                         <Stack.Screen

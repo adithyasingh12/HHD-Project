@@ -54,3 +54,15 @@ export const uploadVideo = async (
     console.error("Error uploading video:", error);
   }
 };
+
+export const deleteVideoinStorage = async (videoId) => {
+  try {
+    await storage()
+      .refFromURL("gs://chc-app-cd5bd.appspot.com")
+      .child(`videos/${videoId}`)
+      .delete();
+    console.log("Video deleted from storage");
+  } catch (error) {
+    console.error(error);
+  }
+};

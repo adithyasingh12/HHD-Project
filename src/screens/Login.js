@@ -43,6 +43,7 @@ function Login({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.image} resizeMode="contain" />
+      <Text style={styles.text}>Congenital Heart Center{"\n"}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
@@ -203,6 +204,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 18,
+    fontWeight: "bold",
+  },
+  text: {
+    color: "#001E44",
+    fontSize: 28,
     fontWeight: "bold",
   },
   buttonView: {
