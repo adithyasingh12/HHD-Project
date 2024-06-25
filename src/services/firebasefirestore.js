@@ -48,7 +48,18 @@ export const updateUserData = async (uid, data) => {
   }
 };
 
-
+export const deleteNotification = async (notifId, ageGroup, diagnosis) => {
+  try {
+    await firestore()
+      .collection("NotificationPost")
+      .doc(diagnosis)
+      .collection(ageGroup)
+      .doc(String(notifId))
+      .delete();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const addCategoryData = async (
   categoryData,
@@ -58,20 +69,17 @@ export const addCategoryData = async (
   try {
     if (selectedItems.length === 0) {
       alert("Please select at least one item.");
-      return false; 
-    }
-
-    else if (selectedPublicity === "1") {
+      return false;
+    } else if (selectedPublicity === "1") {
       if (selectedItems.includes("1")) {
         await firestore()
           .collection("Categories")
           .doc("CHD Educational Videos")
           .collection("Child and Peds")
           .doc(categoryData.title)
-          .set(categoryData); 
+          .set(categoryData);
       }
-      if (selectedItems.includes("2")) 
-      {
+      if (selectedItems.includes("2")) {
         await firestore()
           .collection("Categories")
           .doc("CHD Educational Videos")
@@ -79,8 +87,7 @@ export const addCategoryData = async (
           .doc(categoryData.title)
           .set(categoryData);
       }
-      if (selectedItems.includes("3")) 
-      {
+      if (selectedItems.includes("3")) {
         await firestore()
           .collection("Categories")
           .doc("CHD Educational Videos")
@@ -90,13 +97,9 @@ export const addCategoryData = async (
       }
 
       alert("Category created successfully!");
-      return true; 
-    }
-
-    else if (selectedPublicity === "2") 
-    {
-      if (selectedItems.includes("1")) 
-      {
+      return true;
+    } else if (selectedPublicity === "2") {
+      if (selectedItems.includes("1")) {
         await firestore()
           .collection("Categories")
           .doc("PSU Heart Information")
@@ -104,8 +107,7 @@ export const addCategoryData = async (
           .doc(categoryData.title)
           .set(categoryData);
       }
-      if (selectedItems.includes("2")) 
-      {
+      if (selectedItems.includes("2")) {
         await firestore()
           .collection("Categories")
           .doc("PSU Heart Information")
@@ -113,8 +115,7 @@ export const addCategoryData = async (
           .doc(categoryData.title)
           .set(categoryData);
       }
-      if (selectedItems.includes("3")) 
-      {
+      if (selectedItems.includes("3")) {
         await firestore()
           .collection("Categories")
           .doc("PSU Heart Information")
@@ -123,16 +124,13 @@ export const addCategoryData = async (
           .set(categoryData);
       }
       alert("Category created successfully!");
-      return true; 
+      return true;
     }
-  } 
-    catch (error) 
-    {
-      console.error("Error creating category, please try again ", error);
-      throw error;
-    }
+  } catch (error) {
+    console.error("Error creating category, please try again ", error);
+    throw error;
+  }
 };
-
 
 export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
   try {
@@ -294,10 +292,7 @@ export const addVideoData = async (videoData) => {
   } catch (error) {
     console.error("Error adding video data: ", error);
   }
-
 };
-
-
 
 export const getVideosByCategory = async (videoType, ageGroup, category) => {
   try {
@@ -343,3 +338,4 @@ export const deleteVideoById = async (videoType, ageGroup, category, videoId) =>
     console.error("Error deleting video:", error);
   }
 };
+
