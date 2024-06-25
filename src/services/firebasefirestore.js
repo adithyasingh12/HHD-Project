@@ -198,6 +198,20 @@ export const pushNotificationtoindividual = async (email, data) => {
     console.error("Error writing documents:", error);
   }
 };
+
+export const pushNotificationtouid = async (uid, data) => {
+  try {
+    await firestore()
+      .collection("UserPost")
+      .doc(uid)
+      .collection("Notifications")
+      .add(data);
+
+    console.log("Documents successfully added!");
+  } catch (error) {
+    console.error("Error writing documents:", error);
+  }
+};
 export const addUserToFirestore = async (uid, email) => {
   try {
     await firestore().collection("users").doc(email).set({
@@ -346,7 +360,6 @@ export const deleteVideoById = async (
   }
 };
 
-
 // Function to fetch user data from Firestore
 export const fetchUserData = async () => {
   console.log("fetchUserData: Function start");
@@ -358,7 +371,9 @@ export const fetchUserData = async () => {
 
     console.log("fetchUserData: Documents fetched, processing each document");
     querySnapshot.forEach((documentSnapshot) => {
-      console.log(`fetchUserData: Processing document with ID ${documentSnapshot.id}`);
+      console.log(
+        `fetchUserData: Processing document with ID ${documentSnapshot.id}`
+      );
       userPosts.push({
         id: documentSnapshot.id,
         ...documentSnapshot.data(),

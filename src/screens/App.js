@@ -55,28 +55,6 @@ const App = () => {
                     {!user ? (
                       <>
                         <Stack.Screen
-
-                          name="AdminHome"
-                          component={AdminHomeScreen}
-                          options={{
-                            title: "Admin Home",
-                            headerRight: () => (
-                              <Button onPress={handleLogout} title="Logout" />
-                            ),
-                          }}
-                        />
-                        <Stack.Screen
-                          name="AgeClassification"
-                          component={AgeClassification}
-                          options={{ title: "Age Classification" }}
-                        />
-                        <Stack.Screen
-                          name="ManageVideos"
-                          component={ManageVideos}
-                          options={{ title: "Manage Videos" }}
-                        />
-                        <Stack.Screen
-
                           name="Login"
                           component={Login}
                           options={{ title: "Login" }}
@@ -103,6 +81,12 @@ const App = () => {
                               <Button onPress={handleLogout} title="Logout" />
                             ),
                           }}
+                        />
+
+                        <Stack.Screen
+                          name="AgeClassification"
+                          component={AgeClassification}
+                          options={{ title: "Age Classification" }}
                         />
 
                         <Stack.Screen
