@@ -22,6 +22,7 @@ import AdminManageNotifications from "./AdminManageNotifications";
 
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
+
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
@@ -54,6 +55,7 @@ const App = () => {
                     {!user ? (
                       <>
                         <Stack.Screen
+
                           name="AdminHome"
                           component={AdminHomeScreen}
                           options={{
@@ -74,6 +76,7 @@ const App = () => {
                           options={{ title: "Manage Videos" }}
                         />
                         <Stack.Screen
+
                           name="Login"
                           component={Login}
                           options={{ title: "Login" }}
@@ -101,6 +104,12 @@ const App = () => {
                             ),
                           }}
                         />
+
+                        <Stack.Screen
+                          name="ManageVideos"
+                          component={ManageVideos}
+                          options={{ title: "Manage Videos" }}
+                        />
                         <Stack.Screen
                           name="AdminNotifications"
                           component={AdminNotification}
@@ -114,7 +123,7 @@ const App = () => {
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
-                          options={{ title: "New Category" }}
+                          options={{ title: "New Video Category" }}
                         />
                         <Stack.Screen
                           name="AddVideo"

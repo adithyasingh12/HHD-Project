@@ -13,9 +13,13 @@ import { Dropdown } from "react-native-element-dropdown";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CategoryContext from "../context/categoryContext";
-import { getVideosByCategory, deleteVideoById } from "../services/firebasefirestore";
+import {
+  getVideosByCategory,
+  deleteVideoById,
+} from "../services/firebasefirestore";
+import { deleteVideoinStorage } from "../services/firebasestorage";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const ManageVideos = ({ navigation }) => {
   const [videoType, setVideoTypeValue] = useState(null);
@@ -28,8 +32,8 @@ const ManageVideos = ({ navigation }) => {
   useEffect(() => {
     console.log("Categories context:", categories);
     if (videoType && ageGroup) {
-
-      const type = videoType.toLowerCase() === "psu heart information" ? "psu" : "chd";
+      const type =
+        videoType.toLowerCase() === "psu heart information" ? "psu" : "chd";
       const age = ageGroup.toLowerCase();
 
       // Check if categories[type] and categories[type][age] are defined
@@ -39,21 +43,32 @@ const ManageVideos = ({ navigation }) => {
         const subCategories = categories[type][age];
 
         if (Array.isArray(subCategories)) {
-          const formattedSubCategories = subCategories.map((item) => ({ name: item, id: item }));
+          const formattedSubCategories = subCategories.map((item) => ({
+            name: item,
+            id: item,
+          }));
           setSubCategories(formattedSubCategories);
         } else {
           console.log("subCategories is not an array or is undefined");
         }
       } else {
-        console.log(`Categories for type "${type}" and age "${age}" are not defined`);
+        console.log(
+          `Categories for type "${type}" and age "${age}" are not defined`
+        );
       }
     }
   }, [videoType, ageGroup, categories]);
 
   const handleFetchVideos = async () => {
     if (videoType && ageGroup && category.length > 0) {
-      console.log(`Fetching videos for videoType: ${videoType}, ageGroup: ${ageGroup}, category: ${category[0]}`);
-      const fetchedVideos = await getVideosByCategory(videoType, ageGroup, category[0]);
+      console.log(
+        `Fetching videos for videoType: ${videoType}, ageGroup: ${ageGroup}, category: ${category[0]}`
+      );
+      const fetchedVideos = await getVideosByCategory(
+        videoType,
+        ageGroup,
+        category[0]
+      );
       console.log("Fetched videos:", fetchedVideos);
       setVideos(fetchedVideos);
     } else {
@@ -72,6 +87,7 @@ const ManageVideos = ({ navigation }) => {
           style: "destructive",
           onPress: async () => {
             await deleteVideoById(videoType, ageGroup, category[0], videoId);
+            await deleteVideoinStorage(videoId);
             handleFetchVideos(); // Refresh the list after deletion
           },
         },

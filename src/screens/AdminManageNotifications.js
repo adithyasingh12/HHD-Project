@@ -6,12 +6,11 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AdminNotificationPopup from "../components/adminNotificationComponent";
 import { diagnosis } from "./allthedata";
 import { getAdminNotifications } from "../services/firebasefirestore";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const AdminManageNotifications = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
@@ -20,40 +19,55 @@ const AdminManageNotifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null);
 
-  const ageGroupData = [
-    { label: "Pediatric", value: "1" },
-    { label: "Transition", value: "2" },
-    { label: "Adult", value: "3" },
-  ];
-
   const fetchNotifications = async () => {
-    // Simulate fetching notifications and user data based on diagnosis and age group
+    // Fetch notifications
     const fetchedNotifications = await getAdminNotifications(
       ageGroupValue,
       diagnosisValue
     );
-    setNotifications(fetchedNotifications);
-  };
 
-  const handleDelete = () => {
-    console.log("Notification Deleted");
-    setPopupVisible(false);
-  };
+    // Store the selected age group and diagnosis for each notification
+    const notificationsWithDetails = fetchedNotifications.map(
+      (notification) => {
+        const pathParts = notification._ref._documentPath._parts;
+        const diagnosis = pathParts[1];
+        const ageGroup = pathParts[2];
+        console.log("diagnosis", diagnosis);
+        return {
+          id: notification.id,
+          data: notification.data(),
+          diagnosis: diagnosis,
+          ageGroup: ageGroup,
+        };
+      }
+    );
 
-  const handleEdit = (newTitle, newDescription) => {
-    console.log("Edited Title:", newTitle);
-    console.log("Edited Description:", newDescription);
-  };
+    console.log(notificationsWithDetails);
 
-  const handleResponse = (response) => {
-    console.log("User response:", response);
-    setPopupVisible(false);
+    setNotifications(notificationsWithDetails);
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.dropdownContainer}>
         <Text>Select Diagnosis:</Text>
+        <SectionedMultiSelect
+          styles={{ selectToggle: styles.dropdown }}
+          items={diagnosis.map((item) => ({
+            name: item.label,
+            id: item.value,
+          }))}
+          selectText="Diagnosis"
+          uniqueKey="name"
+          searchPlaceholderText="Choose diagnosis..."
+          IconRenderer={MaterialIcons}
+          confirmText="Select"
+          selectedItems={diagnosisValue}
+          onSelectedItemsChange={setDiagnosisValue}
+        />
+      </View>
+      <View style={styles.dropdownContainer}>
+        <Text>Select Age Group:</Text>
         <SectionedMultiSelect
           styles={{ selectToggle: styles.dropdown }}
           items={[
@@ -63,28 +77,11 @@ const AdminManageNotifications = () => {
           ]}
           selectText="Age Group"
           uniqueKey="name"
-          searchPlaceholderText={"Choose Age Group..."}
+          searchPlaceholderText="Choose Age Group..."
           IconRenderer={MaterialIcons}
           confirmText="Select"
           selectedItems={ageGroupValue}
           onSelectedItemsChange={setAgeGroupValue}
-        />
-      </View>
-      <View style={styles.dropdownContainer}>
-        <Text>Select Age Group:</Text>
-        <SectionedMultiSelect
-          styles={{ selectToggle: styles.dropdown }}
-          items={diagnosis.map((item) => ({
-            name: item.label,
-            id: item.value,
-          }))}
-          selectText="Diagnosis"
-          uniqueKey="name"
-          searchPlaceholderText={"Choose diagnosis..."}
-          IconRenderer={MaterialIcons}
-          confirmText="Select"
-          selectedItems={diagnosisValue}
-          onSelectedItemsChange={setDiagnosisValue}
         />
       </View>
 
@@ -102,25 +99,25 @@ const AdminManageNotifications = () => {
           }}
         >
           <Text style={styles.notificationTitle}>
-            {notification.data().title}
+            {notification.data.title || "No title"}
           </Text>
           <Text style={styles.notificationDescription}>
-            {notification.data().description}
+            {notification.data.description || "No description"}
           </Text>
         </TouchableOpacity>
       ))}
 
       {isPopupVisible && selectedNotification && (
         <AdminNotificationPopup
-          isResearch={selectedNotification.data().isResearch}
-          title={selectedNotification.data().title}
-          description={selectedNotification.data().description}
+          isResearch={selectedNotification.data.isResearch}
+          title={selectedNotification.data.title}
+          description={selectedNotification.data.description}
           onClose={() => setPopupVisible(false)}
-          handleResponse={handleResponse}
-          users={selectedNotification.data().users}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
+          handleResponse={(response) => setPopupVisible(false)}
+          users={selectedNotification.data.users}
           notifId={selectedNotification.id}
+          diagnosis={selectedNotification.diagnosis}
+          ageGroup={selectedNotification.ageGroup}
         />
       )}
     </ScrollView>
