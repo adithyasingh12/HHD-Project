@@ -52,6 +52,19 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Create New Category</Text>
       </Pressable>
+
+      <Pressable style={styles.optionContainer}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            navigation.navigate("DeleteCategory");
+          }}
+        >
+          <MaterialIcons name="add-circle-outline" size={60} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.optionText}>Delete Category</Text>
+      </Pressable>
+
       <Pressable style={styles.optionContainer}>
         <TouchableOpacity
           style={styles.iconButton}
@@ -63,6 +76,7 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Manage Notifications</Text>
       </Pressable>
+      
     </ScrollView>
   );
 };

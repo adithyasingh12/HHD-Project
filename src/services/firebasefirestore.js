@@ -3,7 +3,7 @@ import firebase from "@react-native-firebase/app";
 import firestore, { query } from "@react-native-firebase/firestore";
 import { useNavigationBuilder } from "@react-navigation/native";
 import { diagnosis } from "../screens/allthedata";
-
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { parse } from "date-fns"; // Install date-fns if not already installed: npm install date-fns
 import { useState } from "react";
 import auth from "@react-native-firebase/auth";
@@ -132,6 +132,33 @@ export const addCategoryData = async (
       throw error;
     }
 };
+
+
+
+
+
+export const deleteCategory = async (videoType, ageGroup, category) => {
+  try {
+    let collectionRef = firestore().collection("Categories");
+
+    if (videoType === "chd") {
+      collectionRef = collectionRef.doc("CHD Educational Videos").collection(ageGroup);
+    } else if (videoType === "psu") {
+      collectionRef = collectionRef.doc("PSU Heart Information").collection(ageGroup);
+    } else {
+      throw new Error("Invalid videoType");
+    }
+
+    await collectionRef.doc(category).delete();
+    return true;
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+};
+
+
+
 
 
 export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
