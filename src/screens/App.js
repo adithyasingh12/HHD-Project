@@ -19,17 +19,27 @@ import VideoHome from "./VideoHome";
 import NewCategoryScreen from "./NewCategoryScreen";
 import ContactInfoScreen from "./ContactInfoScreen";
 import AdminManageNotifications from "./AdminManageNotifications";
+<<<<<<< HEAD
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
 
 import DeleteCategory  from "./DeleteCategory";
 
 
+=======
+
+import AgeCategories from "./AgeCategories";
+import SubCategories from "./SubCategories";
+
+>>>>>>> a0026f6 (ignore)
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
 import ManageVideos from "./ManageVideos";
+<<<<<<< HEAD
 import AgeClassification from "./AgeClassification";
+=======
+>>>>>>> a0026f6 (ignore)
 
 const Stack = createNativeStackNavigator();
 
@@ -86,12 +96,15 @@ const App = () => {
                         />
 
                         <Stack.Screen
+<<<<<<< HEAD
                           name="AgeClassification"
                           component={AgeClassification}
                           options={{ title: "Age Classification" }}
                         />
 
                         <Stack.Screen
+=======
+>>>>>>> a0026f6 (ignore)
                           name="ManageVideos"
                           component={ManageVideos}
                           options={{ title: "Manage Videos" }}
@@ -106,18 +119,24 @@ const App = () => {
                           component={AdminManageNotifications}
                           options={{ title: "Manage Notifications" }}
                         />
+<<<<<<< HEAD
     
+=======
+>>>>>>> a0026f6 (ignore)
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
                           options={{ title: "New Video Category" }}
                         />
+<<<<<<< HEAD
                     
                         <Stack.Screen
                           name="DeleteCategory"
                           component={DeleteCategory}
                           options={{ title: "Delete Category" }}
                         />
+=======
+>>>>>>> a0026f6 (ignore)
                         <Stack.Screen
                           name="AddVideo"
                           component={AddVideo}
