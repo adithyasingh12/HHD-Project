@@ -296,7 +296,9 @@ export const addVideoData = async (videoData) => {
 
 export const getVideosByCategory = async (videoType, ageGroup, category) => {
   try {
-    console.log(`Fetching videos for videoType: ${videoType}, ageGroup: ${ageGroup}, category: ${category}`);
+    console.log(
+      `Fetching videos for videoType: ${videoType}, ageGroup: ${ageGroup}, category: ${category}`
+    );
     const videos = [];
     const querySnapshot = await firestore()
       .collection("Categories")
@@ -323,7 +325,12 @@ export const getVideosByCategory = async (videoType, ageGroup, category) => {
   }
 };
 
-export const deleteVideoById = async (videoType, ageGroup, category, videoId) => {
+export const deleteVideoById = async (
+  videoType,
+  ageGroup,
+  category,
+  videoId
+) => {
   try {
     await firestore()
       .collection("Categories")
@@ -338,4 +345,3 @@ export const deleteVideoById = async (videoType, ageGroup, category, videoId) =>
     console.error("Error deleting video:", error);
   }
 };
-
