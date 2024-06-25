@@ -345,3 +345,39 @@ export const deleteVideoById = async (
     console.error("Error deleting video:", error);
   }
 };
+
+export const addDoctor = async (name) => {
+  try {
+    await firestore().collection("Doctors").add({
+      name: name,
+    });
+    console.log(`Doctor ${name} added to Firestore`);
+  } catch (error) {
+    console.error("Error adding doctor to Firestore: ", error);
+  }
+};
+
+export const deactivateDoctor = async (doctorIds) => {
+  try {
+    const doctorsCollection = firestore().collection("Doctors");
+
+    for (const id of doctorIds) {
+      const docRef = doctorsCollection.doc(id);
+      const doc = await docRef.get();
+
+      if (doc.exists) {
+        const doctorName = doc.data().name;
+        await docRef.update({
+          name: `${doctorName} (Not Available)`,
+        });
+        console.log(`Doctor ${doctorName} marked as Not Available`);
+      } else {
+        console.log(`Doctor with ID ${id} not found in Firestore`);
+      }
+    }
+
+    console.log('Doctors updated successfully');
+  } catch (error) {
+    console.error("Error updating doctor names in Firestore: ", error);
+  }
+};

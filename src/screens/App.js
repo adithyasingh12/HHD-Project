@@ -27,12 +27,15 @@ import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
 import ManageVideos from "./ManageVideos";
+import EditDoctorsScreen from "./EditDoctors";
+import { DoctorProvider } from "../context/doctorContext";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <AuthProvider>
+      <DoctorProvider>
       <UserDataProvider>
         <CategoryProvider>
           <NavigationContainer>
@@ -107,6 +110,11 @@ const App = () => {
                           component={AddVideo}
                           options={{ title: "Add Video" }}
                         />
+                        <Stack.Screen
+                          name="EditDoctors"
+                          component={EditDoctorsScreen}
+                          options={{ title: "Edit Doctors" }}
+                        />
                       </>
                     ) : (
                       <>
@@ -169,6 +177,7 @@ const App = () => {
           </NavigationContainer>
         </CategoryProvider>
       </UserDataProvider>
+      </DoctorProvider>
     </AuthProvider>
   );
 };

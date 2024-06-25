@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Alert,
   SafeAreaView,
@@ -15,9 +15,10 @@ import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { diagnosis, doctors, raceData } from "./allthedata";
+import { diagnosis, raceData } from "./allthedata";
 import { addUserData, addUserToFirestore } from "../services/firebasefirestore";
 import { signUp } from "../services/firebaseauth";
+import { DoctorContext } from "../context/doctorContext";
 
 function Register2({ route, navigation }) {
   const { email, password } = route.params;
@@ -34,6 +35,8 @@ function Register2({ route, navigation }) {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [dob, setDob] = useState("");
+  const { doctors } = useContext(DoctorContext);
+  console.log("Register:", doctors);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -182,8 +185,8 @@ function Register2({ route, navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={doctors.map((item) => ({
-              label: item.label,
-              value: item.label,
+              label: item.name,
+              value: item.name,
             }))}
             labelField="label"
             valueField="value"
