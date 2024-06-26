@@ -18,7 +18,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { diagnosis, raceData } from "./allthedata";
 import { addUserData, addUserToFirestore } from "../services/firebasefirestore";
 import { signUp } from "../services/firebaseauth";
-import { DoctorContext } from "../context/doctorContext";
+import DoctorContext from '../context/doctorContext';
 
 function Register2({ route, navigation }) {
   const { email, password } = route.params;
@@ -36,7 +36,6 @@ function Register2({ route, navigation }) {
   const [show, setShow] = useState(false);
   const [dob, setDob] = useState("");
   const { doctors } = useContext(DoctorContext);
-  console.log("Register:", doctors);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;

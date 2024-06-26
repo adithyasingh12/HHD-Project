@@ -14,10 +14,11 @@ import { Dropdown } from "react-native-element-dropdown";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import dayjs from "dayjs";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { diagnosis, doctors, raceData } from "./allthedata";
+import { diagnosis, raceData } from "./allthedata";
 import AuthContext from "../context/authContext";
 import UserDataContext from "../context/userContext";
 import { updateUserData } from "../services/firebasefirestore";
+import DoctorContext from '../context/doctorContext';
 
 function EditDetails({ navigation }) {
   const { userData, setUserData } = useContext(UserDataContext);
@@ -42,6 +43,7 @@ function EditDetails({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [dob, setDob] = useState(userData.dob);
+  const { doctors } = useContext(DoctorContext);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -180,8 +182,8 @@ function EditDetails({ navigation }) {
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             data={doctors.map((item) => ({
-              label: item.label,
-              value: item.label,
+              label: item.name,
+              value: item.name,
             }))}
             labelField="label"
             valueField="value"
