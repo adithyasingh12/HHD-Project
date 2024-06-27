@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
-  Dimensions,
   ScrollView,
   StatusBar,
 } from "react-native";
@@ -24,16 +23,28 @@ const VideoPlayerScreen = ({ route }) => {
   useEffect(() => {
     const fetchVideo = async () => {
       setLoading(true);
+      console.log(`Fetching video for ID: ${videoId}`);
+
       const metadata = await getVideoMetadata(videoId);
+      if (metadata) {
+        console.log(`Found metadata for video ID ${videoId}:`, metadata);
+      } else {
+        console.log(`No metadata found for video ID ${videoId}`);
+      }
 
       if (metadata && (await RNFS.exists(metadata.path))) {
+        console.log(`Video exists at path: ${metadata.path}`);
         setVideoPath(metadata.path);
       } else {
+        console.log(`Downloading video from URL: ${url}`);
         const downloadedPath = await downloadVideo(url, videoId);
 
         if (downloadedPath) {
+          console.log(`Downloaded video to path: ${downloadedPath}`);
           await saveVideoMetadata(videoId, downloadedPath);
           setVideoPath(downloadedPath);
+        } else {
+          console.log(`Failed to download video for URL: ${url}`);
         }
       }
       setLoading(false);
@@ -66,7 +77,7 @@ const VideoPlayerScreen = ({ route }) => {
         ) : videoPath ? (
           <Video
             ref={videoRef}
-            source={{ uri: url }} // Adjust the path to your video file
+            source={{ uri: videoPath }} // Use the cached file path
             style={isFullScreen ? styles.fullScreenVideo : styles.video}
             controls={true}
             resizeMode="contain"

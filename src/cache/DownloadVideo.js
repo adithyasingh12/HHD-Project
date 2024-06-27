@@ -1,26 +1,20 @@
-import storage from '@react-native-firebase/storage';
-import RNFS from 'react-native-fs';
+// DownloadVideo.js
+import RNFS from "react-native-fs";
 
-export const downloadVideo = async (videoUrl, localFileName) => {
+export const downloadVideo = async (url, videoId) => {
+  const downloadPath = `${RNFS.DocumentDirectoryPath}/${videoId}.mp4`;
+
   try {
-    const storageRef = storage().refFromURL(videoUrl);
-    const downloadUrl = await storageRef.getDownloadURL();
-    const localFilePath = `${RNFS.DocumentDirectoryPath}/${localFileName}`;
+    const { promise } = RNFS.downloadFile({
+      fromUrl: url,
+      toFile: downloadPath,
+    });
 
-    const result = await RNFS.downloadFile({
-      fromUrl: downloadUrl,
-      toFile: localFilePath,
-    }).promise;
+    await promise;
 
-    if (result.statusCode === 200) {
-      console.log('Video downloaded successfully:', localFilePath);
-      return localFilePath;
-    } else {
-      throw new Error('Failed to download video');
-    }
+    return downloadPath;
   } catch (error) {
-    console.error('Error downloading video:', error);
-    console.log(`${RNFS.DocumentDirectoryPath}`);
+    console.error("Failed to download video:", error);
     return null;
   }
 };

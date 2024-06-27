@@ -52,7 +52,6 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Create New Video Category</Text>
       </Pressable>
-<<<<<<< HEAD
 
       <Pressable style={styles.optionContainer}>
         <TouchableOpacity
@@ -66,8 +65,6 @@ const AdminHomeScreen = ({ navigation }) => {
         <Text style={styles.optionText}>Delete Category</Text>
       </Pressable>
 
-=======
->>>>>>> a0026f6 (ignore)
       <Pressable style={styles.optionContainer}>
         <TouchableOpacity
           style={styles.iconButton}
@@ -79,10 +76,7 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Manage Notifications</Text>
       </Pressable>
-<<<<<<< HEAD
 
-=======
->>>>>>> a0026f6 (ignore)
       <Pressable style={styles.optionContainer}>
         <TouchableOpacity
           style={styles.iconButton}
@@ -94,21 +88,6 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Manage Videos</Text>
       </Pressable>
-<<<<<<< HEAD
-      <Pressable style={styles.optionContainer}>
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => {
-            navigation.navigate("AgeClassification");
-          }}
-        >
-          <MaterialIcons name="add-circle-outline" size={60} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.optionText}>Age Classification</Text>
-      </Pressable>
-
-=======
->>>>>>> a0026f6 (ignore)
     </ScrollView>
   );
 };

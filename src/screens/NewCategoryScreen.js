@@ -233,8 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
 export default NewCategoryScreen;
-=======
-export default NewCategoryScreen;
->>>>>>> a0026f6 (ignore)

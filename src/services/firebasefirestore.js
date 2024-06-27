@@ -3,11 +3,8 @@ import firebase from "@react-native-firebase/app";
 import firestore, { query } from "@react-native-firebase/firestore";
 import { useNavigationBuilder } from "@react-navigation/native";
 import { diagnosis } from "../screens/allthedata";
-<<<<<<< HEAD
 import { doc, updateDoc, deleteField } from "firebase/firestore";
-=======
 
->>>>>>> a0026f6 (ignore)
 import { parse } from "date-fns"; // Install date-fns if not already installed: npm install date-fns
 import { useState } from "react";
 import auth from "@react-native-firebase/auth";
@@ -136,38 +133,6 @@ export const addCategoryData = async (
   }
 };
 
-<<<<<<< HEAD
-
-
-
-
-
-export const deleteCategory = async (videoType, ageGroup, category) => {
-  try {
-    let collectionRef = firestore().collection("Categories");
-
-    if (videoType === "chd") {
-      collectionRef = collectionRef.doc("CHD Educational Videos").collection(ageGroup);
-    } else if (videoType === "psu") {
-      collectionRef = collectionRef.doc("PSU Heart Information").collection(ageGroup);
-    } else {
-      throw new Error("Invalid videoType");
-    }
-
-    await collectionRef.doc(category).delete();
-    return true;
-  } catch (error) {
-    console.error("Error deleting category:", error);
-    throw error;
-  }
-};
-
-
-
-
-
-=======
->>>>>>> a0026f6 (ignore)
 export const addUserToNotif = async (email, diagnosis, ageGroup, notifId) => {
   try {
     let ageG = "";
@@ -234,23 +199,6 @@ export const pushNotificationtoindividual = async (email, data) => {
     console.error("Error writing documents:", error);
   }
 };
-<<<<<<< HEAD
-
-export const pushNotificationtouid = async (uid, data) => {
-  try {
-    await firestore()
-      .collection("UserPost")
-      .doc(uid)
-      .collection("Notifications")
-      .add(data);
-
-    console.log("Documents successfully added!");
-  } catch (error) {
-    console.error("Error writing documents:", error);
-  }
-};
-=======
->>>>>>> a0026f6 (ignore)
 export const addUserToFirestore = async (uid, email) => {
   try {
     await firestore().collection("users").doc(email).set({
@@ -398,7 +346,43 @@ export const deleteVideoById = async (
     console.error("Error deleting video:", error);
   }
 };
-<<<<<<< HEAD
+
+
+export const addDoctor = async (name) => {
+  try {
+    await firestore().collection("Doctors").add({
+      name: name,
+    });
+    console.log(`Doctor ${name} added to Firestore`);
+  } catch (error) {
+    console.error("Error adding doctor to Firestore: ", error);
+  }
+};
+
+export const deactivateDoctor = async (doctorIds) => {
+  try {
+    const doctorsCollection = firestore().collection("Doctors");
+
+    for (const id of doctorIds) {
+      const docRef = doctorsCollection.doc(id);
+      const doc = await docRef.get();
+
+      if (doc.exists) {
+        const doctorName = doc.data().name;
+        await docRef.update({
+          name: `${doctorName} (Not Available)`,
+        });
+        console.log(`Doctor ${doctorName} marked as Not Available`);
+      } else {
+        console.log(`Doctor with ID ${id} not found in Firestore`);
+      }
+    }
+
+    console.log('Doctors updated successfully');
+  } catch (error) {
+    console.error("Error updating doctor names in Firestore: ", error);
+  }
+};
 
 // Function to fetch user data from Firestore
 export const fetchUserData = async () => {
@@ -432,5 +416,4 @@ export const fetchUserData = async () => {
 fetchUserData().then((userData) => {
   console.log("fetchUserData: Fetched user data", userData);
 });
-=======
->>>>>>> a0026f6 (ignore)
+

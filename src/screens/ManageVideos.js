@@ -18,6 +18,7 @@ import {
   deleteVideoById,
 } from "../services/firebasefirestore";
 import { deleteVideoinStorage } from "../services/firebasestorage";
+import { deleteCachedVideo } from "../cache/CacheHandler"; // Import the cache handler
 
 const { width } = Dimensions.get("window");
 
@@ -88,6 +89,7 @@ const ManageVideos = ({ navigation }) => {
           onPress: async () => {
             await deleteVideoById(videoType, ageGroup, category[0], videoId);
             await deleteVideoinStorage(videoId);
+            await deleteCachedVideo(videoId); // Delete the cached video
             handleFetchVideos(); // Refresh the list after deletion
           },
         },
