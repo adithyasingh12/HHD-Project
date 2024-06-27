@@ -1,31 +1,27 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// MetadataHandler.js
+import RNFS from "react-native-fs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const saveVideoMetadata = async (videoId, filePath) => {
-  if (!videoId || !filePath) {
-    // console.error('Invalid videoId or filePath', { videoId, filePath });
-    return;
-  }
-  
+const METADATA_KEY_PREFIX = "video_metadata_";
+
+export const getVideoMetadata = async (videoId) => {
   try {
-    const videoMetadata = { id: videoId, path: filePath };
-    await AsyncStorage.setItem(videoId, JSON.stringify(videoMetadata));
-    console.log('Video metadata saved:', videoMetadata);
+    const metadata = await AsyncStorage.getItem(METADATA_KEY_PREFIX + videoId);
+    return metadata ? JSON.parse(metadata) : null;
   } catch (error) {
-    console.error('Error saving video metadata:', error);
+    console.error("Failed to get video metadata:", error);
+    return null;
   }
 };
 
-export const getVideoMetadata = async (videoId) => {
-  if (!videoId) {
-    // console.error('Invalid videoId', { videoId });
-    return null;
-  }
-  
+export const saveVideoMetadata = async (videoId, path) => {
   try {
-    const videoMetadata = await AsyncStorage.getItem(videoId);
-    return videoMetadata ? JSON.parse(videoMetadata) : null;
+    const metadata = { path, timestamp: new Date().toISOString() };
+    await AsyncStorage.setItem(
+      METADATA_KEY_PREFIX + videoId,
+      JSON.stringify(metadata)
+    );
   } catch (error) {
-    console.error('Error retrieving video metadata:', error);
-    return null;
+    console.error("Failed to save video metadata:", error);
   }
 };
