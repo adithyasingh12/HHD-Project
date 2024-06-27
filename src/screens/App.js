@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons"; // Importing Ionicons
 import auth from "@react-native-firebase/auth";
 
 import EditDetails from "./EditDetails";
@@ -22,8 +23,7 @@ import AdminManageNotifications from "./AdminManageNotifications";
 import AgeCategories from "./AgeCategories";
 import SubCategories from "./SubCategories";
 
-import DeleteCategory  from "./DeleteCategory";
-
+import DeleteCategory from "./DeleteCategory";
 
 import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
@@ -84,44 +84,54 @@ const App = () => {
                             ),
                           }}
                         />
-
                         <Stack.Screen
                           name="AgeClassification"
                           component={AgeClassification}
-                          options={{ title: "Age Classification" }}
+                          options={({ navigation }) => ({
+                            title: "Age Classification",
+                          })}
                         />
-
                         <Stack.Screen
                           name="ManageVideos"
                           component={ManageVideos}
-                          options={{ title: "Manage Videos" }}
+                          options={({ navigation }) => ({
+                            title: "Manage Videos",
+                          })}
                         />
                         <Stack.Screen
                           name="AdminNotifications"
                           component={AdminNotification}
-                          options={{ title: "Admin Notifications" }}
+                          options={({ navigation }) => ({
+                            title: "Admin Notifications",
+                          })}
                         />
                         <Stack.Screen
                           name="AdminManageNotifications"
                           component={AdminManageNotifications}
-                          options={{ title: "Manage Notifications" }}
+                          options={({ navigation }) => ({
+                            title: "Manage Notifications",
+                          })}
                         />
-    
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
-                          options={{ title: "New Video Category" }}
+                          options={({ navigation }) => ({
+                            title: "New Video Category",
+                          })}
                         />
-                    
                         <Stack.Screen
                           name="DeleteCategory"
                           component={DeleteCategory}
-                          options={{ title: "Delete Category" }}
+                          options={({ navigation }) => ({
+                            title: "Delete Category",
+                          })}
                         />
                         <Stack.Screen
                           name="AddVideo"
                           component={AddVideo}
-                          options={{ title: "Add Video" }}
+                          options={({ navigation }) => ({
+                            title: "Add Video",
+                          })}
                         />
                       </>
                     ) : (
@@ -139,42 +149,122 @@ const App = () => {
                         <Stack.Screen
                           name="VideoHome"
                           component={VideoHome}
-                          options={{ title: "Video Home" }}
+                          options={({ navigation }) => ({
+                            title: "Video Home",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="AgeCategories"
                           component={AgeCategories}
-                          options={{ title: "Age Categories" }}
+                          options={({ navigation }) => ({
+                            title: "Age Categories",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="SubCategories"
                           component={SubCategories}
-                          options={{ title: "Subcategories" }}
+                          options={({ navigation }) => ({
+                            title: "Subcategories",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="Notifications"
                           component={NotificationsScreen}
-                          options={{ title: "Notifications" }}
+                          options={({ navigation }) => ({
+                            title: "Notifications",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="Contact"
                           component={ContactInfoScreen}
-                          options={{ title: "Contact Info" }}
+                          options={({ navigation }) => ({
+                            title: "Contact Info",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="VideoGallery"
                           component={VideoGallery}
-                          options={{ title: "Video Gallery" }}
+                          options={({ navigation }) => ({
+                            title: "Video Gallery",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="VideoPlayer"
                           component={VideoPlayerScreen}
-                          options={{ title: "Video Player" }}
+                          options={({ navigation }) => ({
+                            title: "Video Player",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                         <Stack.Screen
                           name="EditDetails"
                           component={EditDetails}
-                          options={{ title: "Edit Details" }}
+                          options={({ navigation }) => ({
+                            title: "Edit Details",
+                            headerRight: () => (
+                              <Icon
+                                name="home"
+                                size={30}
+                                color="#000"
+                                onPress={() => navigation.navigate("Home")}
+                              />
+                            ),
+                          })}
                         />
                       </>
                     )}
