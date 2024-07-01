@@ -88,32 +88,6 @@ const AdminHomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.optionText}>Manage Videos</Text>
       </Pressable>
-      <Pressable style={styles.optionContainer}>
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => {
-
-            navigation.navigate("AgeClassification");
-          }}
-        >
-          <MaterialIcons name="add-circle-outline" size={60} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.optionText}>Age Classification</Text>
-      </Pressable>
-      <Pressable style={styles.optionContainer}>
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => {
-
-            navigation.navigate("EditDoctors");
-          }}
-        >
-          <MaterialIcons name="add-circle-outline" size={60} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.optionText}>Edit Doctors</Text>
-      </Pressable>
-
-
     </ScrollView>
   );
 };

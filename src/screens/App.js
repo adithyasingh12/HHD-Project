@@ -29,6 +29,7 @@ import AuthContext, { AuthProvider } from "../context/authContext";
 import { UserDataProvider } from "../context/userContext";
 import { CategoryProvider } from "../context/categoryContext";
 import ManageVideos from "./ManageVideos";
+
 import EditDoctorsScreen from "./EditDoctors";
 import { DoctorProvider } from "../context/doctorContext";
 
@@ -96,6 +97,7 @@ const App = () => {
                           })}
                         />
                         <Stack.Screen
+
                           name="ManageVideos"
                           component={ManageVideos}
                           options={({ navigation }) => ({
@@ -116,6 +118,7 @@ const App = () => {
                             title: "Manage Notifications",
                           })}
                         />
+
                         <Stack.Screen
                           name="NewCategory"
                           component={NewCategoryScreen}
@@ -123,6 +126,7 @@ const App = () => {
                             title: "New Video Category",
                           })}
                         />
+
                         <Stack.Screen
                           name="DeleteCategory"
                           component={DeleteCategory}
@@ -130,6 +134,7 @@ const App = () => {
                             title: "Delete Category",
                           })}
                         />
+
                         <Stack.Screen
                           name="AddVideo"
                           component={AddVideo}

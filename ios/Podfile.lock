@@ -998,9 +998,12 @@ PODS:
   - Firebase/Firestore (10.27.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.27.0)
+<<<<<<< HEAD
   - Firebase/Storage (10.27.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.27.0)
+=======
+>>>>>>> a0026f6 (ignore)
   - FirebaseAppCheckInterop (10.27.0)
   - FirebaseAuth (10.27.0):
     - FirebaseAppCheckInterop (~> 10.17)
@@ -1009,7 +1012,10 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+<<<<<<< HEAD
   - FirebaseAuthInterop (10.28.0)
+=======
+>>>>>>> a0026f6 (ignore)
   - FirebaseCore (10.27.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -1039,6 +1045,7 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30911.0, >= 2.30908.0)
   - FirebaseSharedSwift (10.27.0)
+<<<<<<< HEAD
   - FirebaseStorage (10.27.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.25)
@@ -1046,6 +1053,8 @@ PODS:
     - FirebaseCoreExtension (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+=======
+>>>>>>> a0026f6 (ignore)
   - fmt (9.1.0)
   - glog (0.3.5)
   - GoogleUtilities/AppDelegateSwizzler (7.13.3):
@@ -2112,7 +2121,11 @@ PODS:
     - React-Core
   - react-native-safe-area-context (4.10.4):
     - React-Core
+<<<<<<< HEAD
   - react-native-video (6.2.0):
+=======
+  - react-native-video (6.1.2):
+>>>>>>> a0026f6 (ignore)
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2126,7 +2139,11 @@ PODS:
     - React-featureflags
     - React-graphics
     - React-ImageManager
+<<<<<<< HEAD
     - react-native-video/Video (= 6.2.0)
+=======
+    - react-native-video/Video (= 6.1.2)
+>>>>>>> a0026f6 (ignore)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -2134,7 +2151,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+<<<<<<< HEAD
   - react-native-video/Video (6.2.0):
+=======
+  - react-native-video/Video (6.1.2):
+>>>>>>> a0026f6 (ignore)
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2385,8 +2406,11 @@ PODS:
     - React-perflogger (= 0.74.1)
     - React-utils (= 0.74.1)
   - RecaptchaInterop (100.0.0)
+<<<<<<< HEAD
   - RNCAsyncStorage (1.23.1):
     - React-Core
+=======
+>>>>>>> a0026f6 (ignore)
   - RNDateTimePicker (8.1.0):
     - React-Core
   - RNFBApp (20.1.0):
@@ -2401,12 +2425,15 @@ PODS:
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - React-Core
     - RNFBApp
+<<<<<<< HEAD
   - RNFBStorage (20.1.0):
     - Firebase/Storage (= 10.27.0)
     - React-Core
     - RNFBApp
   - RNFS (2.20.0):
     - React-Core
+=======
+>>>>>>> a0026f6 (ignore)
   - RNScreens (3.31.1):
     - DoubleConversion
     - glog
@@ -2520,13 +2547,19 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+<<<<<<< HEAD
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+=======
+>>>>>>> a0026f6 (ignore)
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+<<<<<<< HEAD
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
+=======
+>>>>>>> a0026f6 (ignore)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -2538,14 +2571,20 @@ SPEC REPOS:
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
+<<<<<<< HEAD
     - FirebaseAuthInterop
+=======
+>>>>>>> a0026f6 (ignore)
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseSharedSwift
+<<<<<<< HEAD
     - FirebaseStorage
+=======
+>>>>>>> a0026f6 (ignore)
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -2686,8 +2725,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+<<<<<<< HEAD
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+=======
+>>>>>>> a0026f6 (ignore)
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFBApp:
@@ -2696,10 +2738,13 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/auth"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
+<<<<<<< HEAD
   RNFBStorage:
     :path: "../node_modules/@react-native-firebase/storage"
   RNFS:
     :path: "../node_modules/react-native-fs"
+=======
+>>>>>>> a0026f6 (ignore)
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -2723,14 +2768,20 @@ SPEC CHECKSUMS:
   Firebase: 26b040b20866a55f55eb3611b9fcf3ae64816b86
   FirebaseAppCheckInterop: 0dd062c9926a76332ca5711dbed6f1a9ac540b54
   FirebaseAuth: 77a012b7e08042bf44d0db835ca2e86e6ca7bbd3
+<<<<<<< HEAD
   FirebaseAuthInterop: cec40cbafa1f9a6e0c3334c5c750a0cae7c97f80
+=======
+>>>>>>> a0026f6 (ignore)
   FirebaseCore: a2b95ae4ce7c83ceecfbbbe3b6f1cddc7415a808
   FirebaseCoreExtension: 4ec89dd0c6de93d6becde32122d68b7c35f6bf5d
   FirebaseCoreInternal: 4b297a2d56063dbea2c1d0d04222d44a8d058862
   FirebaseFirestore: 7169b75e7db8f9796d4130e3c2157ed444f100d4
   FirebaseFirestoreInternal: 7ba63f170a554ae49392da44f9430e5b7915a7ff
   FirebaseSharedSwift: a03fe7a59ee646fef71099a887f774fe25d745b8
+<<<<<<< HEAD
   FirebaseStorage: 255526c3d04c49874d7a5e3886964a79f77d6f33
+=======
+>>>>>>> a0026f6 (ignore)
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
@@ -2768,7 +2819,11 @@ SPEC CHECKSUMS:
   react-native-image-picker: 8b791a2bec6da84ca7d8cbcad30da159d6dd6da4
   react-native-orientation-locker: 5819fd23ca89cbac0d736fb4314745f62716d517
   react-native-safe-area-context: 399a5859f6acbdf67f671c69b53113f535f3b5b0
+<<<<<<< HEAD
   react-native-video: 59f262a2d87c998b747ca1f031efb6eba1c156b5
+=======
+  react-native-video: edecf23162492d4f41f96ff167684fc0507ca63a
+>>>>>>> a0026f6 (ignore)
   React-nativeconfig: 21d89c65ca39875fad2c5c465e0e013e514eba21
   React-NativeModulesApple: e2e180dae4486b2978fcf3564cc4c8de4b453a68
   React-perflogger: 3d31e0d1e8ad891e43a09ac70b7b17a79773003a
@@ -2793,13 +2848,19 @@ SPEC CHECKSUMS:
   React-utils: 8e9c5cd66f0788e156a1fcb5cd69593ec8607611
   ReactCommon: eb4c4a9c43fcc0d93f922d0fdada24638429e515
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+<<<<<<< HEAD
   RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
+=======
+>>>>>>> a0026f6 (ignore)
   RNDateTimePicker: 6dfc4acb94e520ccb1f1697e9d4cd64fd0817314
   RNFBApp: 9acbe359ef3559d6f8ca5c350db471f2b352f98a
   RNFBAuth: 58a7a5591755a4f078cfa03e29a60be009a93931
   RNFBFirestore: a60f00920799fa7bb71a1ecb682e4e6918f6f2b0
+<<<<<<< HEAD
   RNFBStorage: d4935d5db062e552edb623d77e7c460dc45d35d1
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+=======
+>>>>>>> a0026f6 (ignore)
   RNScreens: 30249f9331c3b00ae7cb7922e11f58b3ed369c07
   RNVectorIcons: 7ac7aaa83f8f3d4c7c0f7daea5a431e91a29b0cd
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
